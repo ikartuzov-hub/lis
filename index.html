@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Лис — Личный ИИ-секретарь</title>
-<meta name="description" content="Личный ИИ-секретарь в Telegram: ловит задачи, сортирует по важности и каждое утро присылает дайджест. Не подписка — собери за вечер и владей навсегда.">
+<title>Lis — lives your routine for you</title>
+<meta name="description" content="Personal AI secretary on top of Cowork and Claude. Connects once to your email, calendar, bank and notes — then sorts the flow itself. From you: just “Yes” or “No”. Want to remember something — drop a photo.">
 
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="apple-mobile-web-app-title" content="Лис">
+<meta name="apple-mobile-web-app-title" content="Lis">
 <meta name="theme-color" content="#1B1410">
 
-<meta property="og:title" content="Лис — твой день начинается с ясного списка">
-<meta property="og:description" content="Личный ИИ-секретарь в Telegram: ловит задачи, сортирует по важности и утром присылает дайджест. Собери за вечер — владей навсегда.">
-<meta property="og:image" content="https://ikartuzov-hub.github.io/lis/og-image.png">
+<meta property="og:title" content="Lis — lives your routine for you">
+<meta property="og:description" content="Connect email, calendar, bank and notes once — Lis sorts the flow and decides. From you: just “Yes” or “No”. Want to remember something — drop a photo.">
+<meta property="og:image" content="https://l.seedwave.dev/og-image.png">
 <meta property="og:url" content="https://l.seedwave.dev/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
@@ -35,70 +35,73 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit}
 
-/* topbar */
-.brandmark{position:fixed;top:13px;left:16px;width:26px;height:26px;z-index:7}
-.brandmark svg{width:100%;height:100%}
-.topctrl{position:fixed;top:12px;right:14px;z-index:7;display:flex;align-items:center;gap:8px}
-.rbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);
-  color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* ── topbar: знак + словомарка слева, две круглые кнопки справа (стандарт линейки) ── */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:7;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
+.brandmark{width:26px;height:26px;flex:none}
+.brandmark svg{width:100%;height:100%;display:block}
+.wm{font-family:var(--sans);font-weight:700;font-size:19px;letter-spacing:.2px}
+@keyframes markIn{0%{transform:translate(calc(50vw - 29px),calc(42vh - 26px)) scale(8);opacity:0}
+  18%{opacity:1}64%{transform:translate(calc(50vw - 29px),calc(42vh - 26px)) scale(8)}
+  100%{transform:translate(0,0) scale(1)}}
+.brandmark.reveal{animation:markIn 2.4s cubic-bezier(.65,0,.25,1) both}
+.topctrl{display:flex;align-items:center;gap:8px}
+.rbtn{width:40px;height:40px;min-width:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);
+  color:var(--ink);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
 .rbtn:hover{border-color:var(--accent)}
+.rbtn:active{transform:scale(.92)}
 .langwrap{position:relative}
 .langmenu{position:absolute;top:46px;right:0;background:var(--bg2);border:1px solid var(--line);border-radius:14px;
-  padding:6px;min-width:170px;box-shadow:0 12px 30px rgba(0,0,0,.28);display:none}
+  padding:6px;min-width:176px;box-shadow:0 12px 30px rgba(0,0,0,.28);display:none;z-index:40}
 .langmenu.open{display:block}
 .langmenu button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:none;color:var(--ink);
-  padding:9px 10px;border-radius:9px;cursor:pointer;font-size:14px;text-align:left}
+  padding:9px 10px;border-radius:9px;cursor:pointer;font-size:14px;text-align:left;font-family:inherit}
 .langmenu button:hover{background:var(--bg3)}
 .langmenu button .code{font-weight:700;color:var(--accent);width:26px}
 .langmenu button[aria-current="true"]{background:var(--bg3)}
-
-/* reveal */
-@keyframes markIn{0%{transform:translate(calc(50vw - 42px),calc(45vh - 26px)) scale(8);opacity:0}
-  18%{opacity:1}70%{transform:translate(calc(50vw - 42px),calc(45vh - 26px)) scale(8)}
-  100%{transform:translate(0,0) scale(1)}}
-.brandmark{animation:markIn 2.4s cubic-bezier(.65,0,.25,1) both}
 
 section{padding:0 22px}
 .wrap{max-width:720px;margin:0 auto}
 
 /* hero */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:74px;padding-bottom:40px}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:82px;padding-bottom:40px}
 .tag{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
-h1{font-family:var(--serif);font-size:clamp(52px,15vw,96px);line-height:.98;font-weight:700;letter-spacing:-.01em}
-.sub{font-size:clamp(18px,4.5vw,24px);color:var(--mut);margin-top:8px}
-.hook{font-size:clamp(16px,3.6vw,19px);margin-top:22px;max-width:560px}
+h1{font-family:var(--sans);font-size:clamp(52px,15vw,96px);line-height:.98;font-weight:700;letter-spacing:-.01em}
+.sub{font-size:clamp(19px,4.8vw,26px);color:var(--accent2);margin-top:10px;font-weight:600}
+.hook{font-size:clamp(16px,3.6vw,19px);color:var(--mut);margin-top:20px;max-width:580px}
 
-/* wow card */
-.wow{margin-top:30px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:18px 18px 20px;max-width:420px}
+/* photo-wow card */
+.wow{margin-top:30px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:18px;max-width:440px}
 .wow .wh{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px;margin-bottom:14px}
 .wow .wh b{color:var(--ink)}
-.sun{width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
-.trow{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:var(--bg3);margin-bottom:9px;
-  opacity:0;transform:translateY(8px);animation:rowIn .5s ease forwards}
-.trow:nth-child(2){animation-delay:.2s}.trow:nth-child(3){animation-delay:1.0s}.trow:nth-child(4){animation-delay:1.8s}
-@keyframes rowIn{to{opacity:1;transform:none}}
-.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
-.dot.hi{background:var(--accent)}.dot.mid{background:#6FB1C9}.dot.lo{background:var(--mut)}
-.ttxt{flex:1;font-size:14px}
-.chk{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;position:relative}
-.chk.done{border-color:var(--accent);background:var(--accent)}
-.chk.done::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid var(--accentInk);
-  border-width:0 2px 2px 0;transform:rotate(45deg)}
+.fox{width:18px;height:18px}
+.pline{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:12px;background:var(--bg3);margin-bottom:9px;font-size:14px;
+  opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
+.pline.show{opacity:1;transform:none}
+.pline .ic{flex:0 0 auto;font-size:15px;line-height:1.4}
+.pline .tx{flex:1}
+.pline.get{color:var(--ink)}
+.pline.get .lbl{color:var(--accent);font-weight:700}
+.pline.done{align-items:center;justify-content:space-between}
+.pline.done .tx{color:var(--mut)}
+.ynb{display:flex;gap:6px;flex:0 0 auto}
+.yn{width:30px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;border:1px solid var(--line)}
+.yn.y{border-color:var(--accent);background:var(--accent);color:var(--accentInk)}
 
 /* cta */
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
 .btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:var(--accentInk);
-  font-weight:700;font-size:16px;padding:15px 26px;border-radius:14px;text-decoration:none;border:none;cursor:pointer}
+  font-weight:700;font-size:16px;padding:15px 26px;border-radius:14px;text-decoration:none;border:none;cursor:pointer;font-family:inherit}
 .btn:hover{background:var(--accent2)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ghost:hover{border-color:var(--accent);background:transparent}
+.btn.ghost:hover{border-color:var(--accent)}
 .ctanote{font-size:13px;color:var(--mut);margin-top:12px}
 
 /* blocks */
 .block{padding:64px 22px}
-.block h2{font-family:var(--serif);font-size:clamp(26px,6vw,34px);margin-bottom:26px}
+.block h2{font-family:var(--sans);font-size:clamp(26px,6vw,34px);margin-bottom:26px}
 .step{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
-.step .n{font-family:var(--serif);font-size:22px;color:var(--accent);font-weight:700;flex:0 0 34px}
+.step .n{font-family:var(--sans);font-size:22px;color:var(--accent);font-weight:700;flex:0 0 34px}
 .step p{font-size:16px;margin-top:2px}
 .proofs{list-style:none;display:grid;gap:12px}
 .proofs li{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:15px;position:relative;padding-left:44px}
@@ -113,40 +116,44 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(prefers-reduced-motion:reduce){
-  .brandmark{animation:none}.trow{animation:none;opacity:1;transform:none}
+  .brandmark.reveal{animation:none}.pline{transition:none;opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
 
-<a class="brandmark" href="#" aria-label="Лис">
-  <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg>
-</a>
-
-<div class="topctrl">
-  <div class="langwrap">
-    <button class="rbtn" id="langBtn" aria-haspopup="true" aria-expanded="false">RU</button>
-    <div class="langmenu" id="langMenu" role="menu"></div>
+<div class="topbar">
+  <a class="brand" href="#" aria-label="Lis">
+    <span class="brandmark reveal" id="mark">
+      <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg>
+    </span>
+    <span class="wm">Lis</span>
+  </a>
+  <div class="topctrl">
+    <div class="langwrap">
+      <button class="rbtn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language">RU</button>
+      <div class="langmenu" id="langMenu" role="menu"></div>
+    </div>
+    <button class="rbtn" id="themeBtn" aria-label="Тема">☾</button>
   </div>
-  <button class="rbtn" id="themeBtn" aria-label="Тема">☾</button>
 </div>
 
 <section class="hero">
   <div class="wrap">
     <div class="tag" data-i="tag">SeedWave · AI</div>
-    <h1 data-i="title">Лис</h1>
-    <div class="sub" data-i="sub">Личный ИИ-секретарь</div>
+    <h1 data-i="title">Lis</h1>
+    <div class="sub" data-i="sub">Vive a tua rotina por ti</div>
     <p class="hook" data-i="hook"></p>
 
     <div class="wow" aria-hidden="true">
-      <div class="wh"><span class="sun"></span> <span data-i="wowHead">Доброе утро. Вот твой день:</span></div>
-      <div class="trow"><span class="dot hi"></span><span class="ttxt" data-i="wow1">Ответить AIMA по ВНЖ</span><span class="chk"></span></div>
-      <div class="trow"><span class="dot mid"></span><span class="ttxt" data-i="wow2">Счёт арендатору</span><span class="chk done"></span></div>
-      <div class="trow"><span class="dot lo"></span><span class="ttxt" data-i="wow3">Идея: движок для Birdie</span><span class="chk"></span></div>
+      <div class="wh"><svg class="fox" viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg> <b data-i="wowHead">Lis online</b></div>
+      <div class="pline" id="p1"><span class="ic">📷</span><span class="tx" id="exPhoto"></span></div>
+      <div class="pline get" id="p2"><span class="ic">🦊</span><span class="tx"><span class="lbl" data-i="exLbl">Понял:</span> <span id="exGet"></span></span></div>
+      <div class="pline done" id="p3"><span class="tx" id="exDone"></span><span class="ynb"><span class="yn y">✅</span><span class="yn">❌</span></span></div>
     </div>
 
     <div class="cta">
-      <a class="btn" id="ctaBtn" href="#" target="_blank" rel="noopener"><span data-i="cta">Собрать Лиса</span> →</a>
+      <a class="btn" id="ctaBtn" href="onboarding.html" rel="noopener"><span data-i="cta">Подключить Lis</span> →</a>
       <button class="btn ghost" id="shareBtn"><span data-i="share">Переслать другу</span></button>
     </div>
     <div class="ctanote" data-i="ctaNote"></div>
@@ -175,47 +182,117 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
 
 <script>
 const L = {
-  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Личный ИИ-секретарь",
-    hook:"Пишешь боту задачу, идею или письмо — Лис определяет приоритет, раскладывает по базам и каждое утро присылает дайджест с кнопками «Сделал / Завтра». Не подписка — собери за вечер и владей навсегда.",
-    wowHead:"Доброе утро. Вот твой день:", wow1:"Ответить AIMA по ВНЖ", wow2:"Счёт арендатору", wow3:"Идея: движок для Birdie",
-    cta:"Собрать Лиса", share:"Переслать другу", ctaNote:"Бесплатный разбор в Telegram — без обязательств.",
+  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Живёт твою рутину за тебя",
+    hook:"Почта, календарь, банк, заметки — Лис подключается один раз и дальше сам разбирает поток. От тебя только «Да» или «Нет». А хочешь что-то не забыть — просто кинь фото, остальное он сделает сам.",
+    wowHead:"Лис на связи", exLbl:"Понял:",
+    ex:[
+      {photo:"фото записки от руки", get:"счёт арендатору, срок завтра", done:"черновик выставлен —"},
+      {photo:"фото визитки", get:"новый контакт, добавить в базу", done:"контакт сохранён —"},
+      {photo:"скрин письма из AIMA", get:"запись на ВНЖ, нужен ответ", done:"ответ подготовлен —"}
+    ],
+    cta:"Подключить Lis", share:"Переслать другу", ctaNote:"Настройка один раз — дальше только результаты.",
     howTitle:"Как это работает", proofTitle:"Почему это работает",
-    how:["Пишешь боту в Telegram задачу, мысль или пересылаешь письмо — в любой момент дня.","ИИ определяет приоритет по матрице Эйзенхауэра и раскладывает всё по базам Notion.","Каждое утро приходит дайджест дел с кнопками «Сделал / Завтра» — день начинается с ясного списка.","Важные письма из Gmail сами превращаются в задачи — ничего не теряется."],
-    proofs:["MVP работает каждый день как личная операционная система автора.","Стек без серверов и без кода: Telegram + Make + OpenAI + Notion.","Не подписка: собираешь за вечер по готовой схеме — и владеешь навсегда."]},
-  en:{name:"English", tag:"SeedWave · AI", sub:"Personal AI secretary",
-    hook:"Message the bot a task, idea or email — Lis sets the priority, files it into your bases, and every morning sends a digest with “Done / Tomorrow” buttons. Not a subscription — build it in an evening and own it forever.",
-    wowHead:"Good morning. Here's your day:", wow1:"Reply to AIMA about residency", wow2:"Invoice the tenant", wow3:"Idea: engine for Birdie",
-    cta:"Build Lis", share:"Share with a friend", ctaNote:"A free walkthrough in Telegram — no strings attached.",
+    how:[
+      "Подключаешь один раз: почта, календарь, банк, заметки — и говоришь, что забирать с глаз.",
+      "Лис сам тянет поток из всех источников, понимает каждый пункт и решает всё, что можно, без тебя.",
+      "Что нельзя решить за тебя — приносит готовой развилкой: одно касание «Да» или «Нет».",
+      "Хочешь что-то не забыть — кинь фото. Лис распознаёт и либо уточняет, либо сразу делает."
+    ],
+    proofs:[
+      "С тебя сняты действия и размышления — приходит не список задач, а готовые решения.",
+      "Работает поверх Cowork и Claude: максимум доступов — минимум твоих касаний.",
+      "Один раз настроил — дальше он твой. Не костыль, а личный секретарь, который живёт сам."
+    ]},
+  en:{name:"English", tag:"SeedWave · AI", sub:"Lives your routine for you",
+    hook:"Email, calendar, bank, notes — Lis connects once and sorts the flow by itself. From you: just “Yes” or “No”. And if you want to remember something — just drop a photo, he handles the rest.",
+    wowHead:"Lis online", exLbl:"Got it:",
+    ex:[
+      {photo:"photo of a handwritten note", get:"invoice for the tenant, due tomorrow", done:"draft prepared —"},
+      {photo:"photo of a business card", get:"new contact, add to your base", done:"contact saved —"},
+      {photo:"screenshot of an AIMA email", get:"residency appointment, needs a reply", done:"reply prepared —"}
+    ],
+    cta:"Connect Lis", share:"Share with a friend", ctaNote:"Set up once — then only results.",
     howTitle:"How it works", proofTitle:"Why it works",
-    how:["Message the bot a task, thought or forwarded email — any time of day.","The AI sets priority by the Eisenhower matrix and files everything into your Notion bases.","Every morning a digest arrives with “Done / Tomorrow” buttons — the day starts with a clear list.","Important Gmail emails turn into tasks by themselves — nothing gets lost."],
-    proofs:["The MVP runs every day as the author's personal operating system.","No servers, no code: Telegram + Make + OpenAI + Notion.","Not a subscription: build it in an evening from a ready blueprint — own it forever."]},
-  pt:{name:"Português", tag:"SeedWave · AI", sub:"Secretário pessoal de IA",
-    hook:"Envia ao bot uma tarefa, ideia ou email — o Lis define a prioridade, arruma nas tuas bases e todas as manhãs envia um resumo com botões “Feito / Amanhã”. Não é subscrição — monta numa noite e é teu para sempre.",
-    wowHead:"Bom dia. Aqui está o teu dia:", wow1:"Responder à AIMA sobre residência", wow2:"Fatura ao inquilino", wow3:"Ideia: motor para o Birdie",
-    cta:"Montar o Lis", share:"Enviar a um amigo", ctaNote:"Uma demonstração gratuita no Telegram — sem compromisso.",
+    how:[
+      "Connect once: email, calendar, bank, notes — and tell him what to take off your plate.",
+      "Lis pulls the flow from every source himself, understands each item and settles all he can without you.",
+      "What can't be decided for you — he brings as a ready fork: one tap, “Yes” or “No”.",
+      "Want to remember something — drop a photo. Lis reads it and either asks or just does it."
+    ],
+    proofs:[
+      "Actions and thinking are lifted off you — not a to-do list, but ready decisions.",
+      "Runs on top of Cowork and Claude: maximum access — minimum taps from you.",
+      "Set up once — then he's yours. Not a crutch, but a secretary that runs on its own."
+    ]},
+  pt:{name:"Português", tag:"SeedWave · AI", sub:"Vive a tua rotina por ti",
+    hook:"Email, calendário, banco, notas — o Lis liga-se uma vez e trata do fluxo sozinho. De ti: só “Sim” ou “Não”. E se quiseres não esquecer algo — envia uma foto, ele faz o resto.",
+    wowHead:"Lis online", exLbl:"Percebi:",
+    ex:[
+      {photo:"foto de uma nota à mão", get:"fatura ao inquilino, prazo amanhã", done:"rascunho preparado —"},
+      {photo:"foto de um cartão", get:"novo contacto, juntar à base", done:"contacto guardado —"},
+      {photo:"captura de email da AIMA", get:"marcação de residência, precisa resposta", done:"resposta preparada —"}
+    ],
+    cta:"Ligar o Lis", share:"Enviar a um amigo", ctaNote:"Configuras uma vez — depois só resultados.",
     howTitle:"Como funciona", proofTitle:"Porque funciona",
-    how:["Envia ao bot uma tarefa, pensamento ou email reencaminhado — a qualquer hora.","A IA define a prioridade pela matriz de Eisenhower e arruma tudo nas tuas bases Notion.","Todas as manhãs chega um resumo com botões “Feito / Amanhã” — o dia começa com uma lista clara.","Emails importantes do Gmail tornam-se tarefas sozinhos — nada se perde."],
-    proofs:["O MVP corre todos os dias como o sistema operativo pessoal do autor.","Sem servidores, sem código: Telegram + Make + OpenAI + Notion.","Não é subscrição: montas numa noite a partir de um esquema pronto — é teu para sempre."]},
-  es:{name:"Español", tag:"SeedWave · AI", sub:"Secretario personal de IA",
-    hook:"Escribe al bot una tarea, idea o correo — Lis fija la prioridad, la ordena en tus bases y cada mañana envía un resumen con botones «Hecho / Mañana». No es suscripción — móntalo en una tarde y es tuyo para siempre.",
-    wowHead:"Buenos días. Aquí está tu día:", wow1:"Responder a AIMA sobre residencia", wow2:"Factura al inquilino", wow3:"Idea: motor para Birdie",
-    cta:"Montar Lis", share:"Enviar a un amigo", ctaNote:"Una demo gratis en Telegram — sin compromiso.",
+    how:[
+      "Ligas uma vez: email, calendário, banco, notas — e dizes o que tirar da tua frente.",
+      "O Lis puxa o fluxo de todas as fontes sozinho, percebe cada item e resolve tudo o que pode sem ti.",
+      "O que não se pode decidir por ti — traz como escolha pronta: um toque, “Sim” ou “Não”.",
+      "Queres não esquecer algo — envia uma foto. O Lis reconhece e pergunta ou faz logo."
+    ],
+    proofs:[
+      "As ações e a reflexão saem de ti — não uma lista de tarefas, mas decisões prontas.",
+      "Corre sobre o Cowork e o Claude: máximo de acessos — mínimo de toques teus.",
+      "Configuras uma vez — depois é teu. Não uma muleta, mas um secretário que corre sozinho."
+    ]},
+  es:{name:"Español", tag:"SeedWave · AI", sub:"Vive tu rutina por ti",
+    hook:"Correo, calendario, banco, notas — Lis se conecta una vez y ordena el flujo solo. De ti: solo “Sí” o “No”. Y si quieres no olvidar algo — envía una foto, él hace el resto.",
+    wowHead:"Lis en línea", exLbl:"Entendido:",
+    ex:[
+      {photo:"foto de una nota a mano", get:"factura al inquilino, vence mañana", done:"borrador preparado —"},
+      {photo:"foto de una tarjeta", get:"nuevo contacto, añadir a la base", done:"contacto guardado —"},
+      {photo:"captura de correo de AIMA", get:"cita de residencia, necesita respuesta", done:"respuesta preparada —"}
+    ],
+    cta:"Conectar Lis", share:"Enviar a un amigo", ctaNote:"Lo configuras una vez — después solo resultados.",
     howTitle:"Cómo funciona", proofTitle:"Por qué funciona",
-    how:["Escribe al bot una tarea, idea o correo reenviado — a cualquier hora del día.","La IA fija la prioridad por la matriz de Eisenhower y ordena todo en tus bases Notion.","Cada mañana llega un resumen con botones «Hecho / Mañana» — el día empieza con una lista clara.","Los correos importantes de Gmail se convierten en tareas solos — nada se pierde."],
-    proofs:["El MVP funciona cada día como el sistema operativo personal del autor.","Sin servidores, sin código: Telegram + Make + OpenAI + Notion.","No es suscripción: lo montas en una tarde con un esquema listo — es tuyo para siempre."]},
-  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Persönlicher KI-Sekretär",
-    hook:"Schick dem Bot eine Aufgabe, Idee oder E-Mail — Lis setzt die Priorität, legt sie in deinen Basen ab und schickt jeden Morgen eine Übersicht mit „Erledigt / Morgen“-Knöpfen. Kein Abo — bau ihn an einem Abend und besitze ihn für immer.",
-    wowHead:"Guten Morgen. Hier ist dein Tag:", wow1:"AIMA wegen Aufenthalt antworten", wow2:"Rechnung an den Mieter", wow3:"Idee: Engine für Birdie",
-    cta:"Lis bauen", share:"An Freund senden", ctaNote:"Eine kostenlose Vorführung in Telegram — unverbindlich.",
+    how:[
+      "Conectas una vez: correo, calendario, banco, notas — y dices qué quitar de tu vista.",
+      "Lis trae el flujo de todas las fuentes solo, entiende cada punto y resuelve todo lo que puede sin ti.",
+      "Lo que no se puede decidir por ti — lo trae como bifurcación lista: un toque, “Sí” o “No”.",
+      "Quieres no olvidar algo — envía una foto. Lis la reconoce y pregunta o lo hace al momento."
+    ],
+    proofs:[
+      "Las acciones y el pensar se te quitan — no una lista de tareas, sino decisiones listas.",
+      "Funciona sobre Cowork y Claude: máximo acceso — mínimo de toques tuyos.",
+      "Lo configuras una vez — después es tuyo. No una muleta, sino un secretario que funciona solo."
+    ]},
+  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Lebt deine Routine für dich",
+    hook:"E-Mail, Kalender, Bank, Notizen — Lis verbindet sich einmal und ordnet den Fluss von selbst. Von dir: nur „Ja“ oder „Nein“. Und willst du etwas nicht vergessen — schick ein Foto, den Rest macht er.",
+    wowHead:"Lis online", exLbl:"Verstanden:",
+    ex:[
+      {photo:"Foto einer handschriftlichen Notiz", get:"Rechnung an den Mieter, morgen fällig", done:"Entwurf erstellt —"},
+      {photo:"Foto einer Visitenkarte", get:"neuer Kontakt, in die Basis aufnehmen", done:"Kontakt gespeichert —"},
+      {photo:"Screenshot einer AIMA-Mail", get:"Termin für Aufenthalt, braucht Antwort", done:"Antwort vorbereitet —"}
+    ],
+    cta:"Lis verbinden", share:"An Freund senden", ctaNote:"Einmal einrichten — danach nur Ergebnisse.",
     howTitle:"So funktioniert es", proofTitle:"Warum es funktioniert",
-    how:["Schick dem Bot eine Aufgabe, einen Gedanken oder eine weitergeleitete E-Mail — zu jeder Tageszeit.","Die KI setzt die Priorität nach der Eisenhower-Matrix und legt alles in deine Notion-Basen.","Jeden Morgen kommt eine Übersicht mit „Erledigt / Morgen“-Knöpfen — der Tag beginnt mit einer klaren Liste.","Wichtige Gmail-Mails werden von selbst zu Aufgaben — nichts geht verloren."],
-    proofs:["Das MVP läuft täglich als persönliches Betriebssystem des Autors.","Ohne Server, ohne Code: Telegram + Make + OpenAI + Notion.","Kein Abo: an einem Abend nach fertigem Bauplan gebaut — für immer dein."]}
+    how:[
+      "Einmal verbinden: E-Mail, Kalender, Bank, Notizen — und sagen, was von deinem Tisch soll.",
+      "Lis zieht den Fluss aus allen Quellen selbst, versteht jeden Punkt und erledigt alles Mögliche ohne dich.",
+      "Was nicht für dich entschieden werden kann — bringt er als fertige Weiche: ein Tipp, „Ja“ oder „Nein“.",
+      "Willst du etwas nicht vergessen — schick ein Foto. Lis erkennt es und fragt oder macht es sofort."
+    ],
+    proofs:[
+      "Handeln und Nachdenken werden dir abgenommen — keine To-do-Liste, sondern fertige Entscheidungen.",
+      "Läuft auf Cowork und Claude: maximaler Zugang — minimale Tipps von dir.",
+      "Einmal eingerichtet — dann gehört er dir. Keine Krücke, sondern ein Sekretär, der von selbst läuft."
+    ]}
 };
 const ORDER=["pt","en","ru","es","de"];
 const HUB="https://ikartuzov-hub.github.io/seedwave-catalog/hub/";
 const qs=new URLSearchParams(location.search);
-let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"ru").slice(0,2)).toLowerCase();
-if(!L[lang])lang="ru";
+let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"pt").slice(0,2)).toLowerCase();
+if(!L[lang])lang="pt";
 let theme=qs.get("theme")||localStorage.getItem("sw_theme")||"dark";
 
 function applyTheme(){document.documentElement.dataset.theme=theme==="light"?"light":"";
@@ -227,10 +304,11 @@ function apply(){
   document.getElementById("langBtn").textContent=lang.toUpperCase();
   document.getElementById("steps").innerHTML=t.how.map((s,i)=>`<div class="step"><span class="n">${i+1}</span><p>${s}</p></div>`).join("");
   document.getElementById("proofs").innerHTML=t.proofs.map(p=>`<li>${p}</li>`).join("");
-  document.getElementById("ctaBtn").href="https://t.me/SeedWaveBot?start=lis_"+lang;
+  document.getElementById("ctaBtn").href="onboarding.html?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
   document.getElementById("swLink").href=HUB+"?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
   document.getElementById("yr").textContent=new Date().getFullYear();
-  document.title="Лис — "+t.sub;
+  document.title="Lis — "+t.sub;
+  runDemo(true);
 }
 // language menu
 const menu=document.getElementById("langMenu");
@@ -244,12 +322,38 @@ menu.querySelectorAll("button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;local
   menu.classList.remove("open");apply();});
 document.getElementById("themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";localStorage.setItem("sw_theme",theme);applyTheme();apply();};
 
+// photo-wow demo (cycles examples)
+let demoTimer=null, exIdx=0;
+const p1=document.getElementById("p1"),p2=document.getElementById("p2"),p3=document.getElementById("p3");
+const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+function paintEx(i){
+  const t=L[lang],e=t.ex[i];
+  document.getElementById("exPhoto").textContent=e.photo;
+  document.getElementById("exGet").textContent=e.get;
+  document.getElementById("exDone").textContent="✓ "+e.done;
+}
+function runDemo(reset){
+  clearTimeout(demoTimer);
+  if(reset){exIdx=0;}
+  if(reduce){paintEx(exIdx);[p1,p2,p3].forEach(p=>p.classList.add("show"));return;}
+  [p1,p2,p3].forEach(p=>p.classList.remove("show"));
+  paintEx(exIdx);
+  setTimeout(()=>p1.classList.add("show"),120);
+  setTimeout(()=>p2.classList.add("show"),900);
+  setTimeout(()=>p3.classList.add("show"),1700);
+  demoTimer=setTimeout(()=>{
+    [p1,p2,p3].forEach(p=>p.classList.remove("show"));
+    exIdx=(exIdx+1)%L[lang].ex.length;
+    demoTimer=setTimeout(()=>runDemo(false),450);
+  },4200);
+}
+
 // share
 const toast=document.getElementById("toast");
 document.getElementById("shareBtn").onclick=async()=>{
   const t=L[lang];const txt=t.sub+" — "+t.hook.split(".")[0]+".";
   const url="https://l.seedwave.dev/?lang="+lang;
-  try{if(navigator.share){await navigator.share({title:"Лис",text:txt,url});return;}}catch(e){}
+  try{if(navigator.share){await navigator.share({title:"Lis",text:txt,url});return;}}catch(e){}
   try{await navigator.clipboard.writeText(txt+" "+url);toast.textContent="✓";toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1600);}catch(e){}
 };
 

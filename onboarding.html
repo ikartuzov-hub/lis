@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lis — setup</title>
+<meta name="description" content="Lis onboarding — set up once, then only results.">
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Lis">
+<meta name="theme-color" content="#1B1410">
+<style>
+:root{
+  --bg:#1B1410; --bg2:#241A13; --bg3:#2C2018; --ink:#F6ECE4; --mut:#C9B4A6;
+  --line:#3A2C22; --accent:#E8833C; --accent2:#F3A868; --accentInk:#2A1408;
+  --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#FBF4EE; --bg2:#FFFFFF; --bg3:#FCF6F1; --ink:#241A13; --mut:#7A6656;
+  --line:#EAD9CB; --accent:#C96A25; --accent2:#E8833C; --accentInk:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100svh}
+a{color:inherit}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:7;display:flex;justify-content:space-between;align-items:center;padding:12px 16px}
+.brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--ink)}
+.brandmark{width:26px;height:26px;flex:none}
+.brandmark svg{width:100%;height:100%;display:block}
+.wm{font-weight:700;font-size:19px;letter-spacing:.2px}
+@keyframes markIn{0%{transform:translate(calc(50vw - 29px),calc(40vh - 26px)) scale(7);opacity:0}
+  18%{opacity:1}60%{transform:translate(calc(50vw - 29px),calc(40vh - 26px)) scale(7)}
+  100%{transform:translate(0,0) scale(1)}}
+.brandmark.reveal{animation:markIn 2.2s cubic-bezier(.65,0,.25,1) both}
+.topctrl{display:flex;align-items:center;gap:8px}
+.rbtn{width:40px;height:40px;min-width:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);
+  color:var(--ink);font-family:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.rbtn:hover{border-color:var(--accent)}
+.rbtn:active{transform:scale(.92)}
+.langwrap{position:relative}
+.langmenu{position:absolute;top:46px;right:0;background:var(--bg2);border:1px solid var(--line);border-radius:14px;
+  padding:6px;min-width:176px;box-shadow:0 12px 30px rgba(0,0,0,.28);display:none;z-index:40}
+.langmenu.open{display:block}
+.langmenu button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:none;color:var(--ink);
+  padding:9px 10px;border-radius:9px;cursor:pointer;font-size:14px;text-align:left;font-family:inherit}
+.langmenu button:hover{background:var(--bg3)}
+.langmenu button .code{font-weight:700;color:var(--accent);width:26px}
+.langmenu button[aria-current="true"]{background:var(--bg3)}
+
+.pbar{position:fixed;top:0;left:0;height:3px;background:var(--accent);width:0;z-index:8;transition:width .35s ease}
+
+main{max-width:460px;margin:0 auto;padding:96px 22px 60px;min-height:100svh;display:flex;flex-direction:column}
+.screen{display:none;flex:1;flex-direction:column}
+.screen.on{display:flex;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.slabel{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.06em;display:flex;justify-content:space-between}
+.qtitle{font-size:clamp(23px,6vw,30px);font-weight:700;line-height:1.15;margin:14px 0 6px}
+.qhint{color:var(--mut);font-size:13px;margin-bottom:20px}
+
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid var(--line);border-radius:12px;padding:11px 15px;font-size:15px;cursor:pointer;background:var(--bg2);transition:.12s}
+.chip:hover{border-color:var(--accent)}
+.chip.sel{background:var(--accent);color:var(--accentInk);border-color:var(--accent);font-weight:600}
+
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{border:1px solid var(--line);border-radius:14px;padding:15px 16px;font-size:15px;cursor:pointer;background:var(--bg2);transition:.12s;position:relative}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--bg3)}
+.opt.rec{border-width:2px;border-color:var(--accent)}
+.opt .rlab{color:var(--accent);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:3px}
+
+.arow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:13px 14px;background:var(--bg2);margin-bottom:10px;cursor:pointer;transition:.12s}
+.arow:hover{border-color:var(--accent)}
+.arow.on{border-color:var(--accent)}
+.arow .aic{font-size:20px;flex:none;width:24px;text-align:center}
+.arow .atx{flex:1;min-width:0}
+.arow .an{font-size:15px}
+.arow .aw{font-size:12px;color:var(--mut)}
+.arow .opt-tag{font-size:11px;color:var(--mut)}
+.pill{flex:none;border:1px solid var(--accent);color:var(--accent);border-radius:9px;padding:6px 12px;font-size:13px;font-weight:600;background:transparent}
+.arow.on .pill{background:var(--accent);color:var(--accentInk);border-color:var(--accent)}
+.aprog{color:var(--mut);font-size:13px;margin:6px 2px 4px}
+.aread{color:var(--mut);font-size:12px;margin:0 2px 18px;display:flex;align-items:center;gap:6px}
+
+.spacer{flex:1;min-height:24px}
+.nav{display:flex;align-items:center;gap:14px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accentInk);
+  font-weight:700;font-size:16px;padding:15px 26px;border-radius:14px;border:none;cursor:pointer;font-family:inherit}
+.btn:hover{background:var(--accent2)}
+.btn.full{width:100%;justify-content:center}
+.back{background:none;border:none;color:var(--mut);font-size:15px;cursor:pointer;font-family:inherit;padding:8px 4px}
+.back:hover{color:var(--ink)}
+
+.hero-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.hero-center .big{font-size:clamp(48px,15vw,72px);font-weight:700;line-height:1}
+.hero-center .sub{color:var(--accent2);font-size:clamp(18px,5vw,22px);font-weight:600}
+.hero-center .note{color:var(--mut);font-size:15px;max-width:300px}
+.hero-mark{width:56px;height:56px}
+
+.done-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px}
+.done-center .dt{font-size:clamp(26px,7vw,34px);font-weight:700;line-height:1.15;max-width:340px}
+.done-center .ds{color:var(--mut);font-size:16px;max-width:320px}
+.done-check{width:64px;height:64px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accentInk);font-size:32px;margin-bottom:6px}
+.summary{width:100%;max-width:360px;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 15px;margin:6px 0;text-align:left;display:flex;flex-direction:column;gap:11px}
+.pact{color:var(--accent2);font-weight:600;font-size:15px;line-height:1.4}
+.srow{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;font-size:14px;border-top:1px solid var(--line);padding-top:11px}
+.srow .sk{color:var(--mut);flex:none}
+.chips-ro{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+.chips-ro span{background:var(--bg3);border-radius:8px;padding:3px 8px;font-size:12px}
+
+@media(prefers-reduced-motion:reduce){.brandmark.reveal{animation:none}.screen.on{animation:none}}
+</style>
+</head>
+<body>
+
+<div class="pbar" id="pbar"></div>
+
+<div class="topbar">
+  <a class="brand" href="#" aria-label="Lis" id="brandLink">
+    <span class="brandmark reveal" id="mark">
+      <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg>
+    </span>
+    <span class="wm">Lis</span>
+  </a>
+  <div class="topctrl">
+    <div class="langwrap">
+      <button class="rbtn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-label="Language">PT</button>
+      <div class="langmenu" id="langMenu" role="menu"></div>
+    </div>
+    <button class="rbtn" id="themeBtn" aria-label="Theme">☾</button>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<script>
+const L={
+ru:{name:"Русский",start:"Начать",next:"Дальше",back:"Назад",
+ heroSub:"Живёт твою рутину за тебя",heroNote:"Настроим один раз — дальше только результаты. Пара минут, всё тапами.",
+ wantLabel:"Хочу",ofWord:"из",
+ q:[
+  {t:"Что забрать с глаз в первую очередь?",hint:"можно несколько",multi:true,opts:["Почта","Счета и деньги","Встречи","Идеи и заметки","Всё сразу"]},
+  {t:"Когда напоминать о себе?",hint:"выбери одно",multi:false,opts:["Утром — дайджестом","Как только что-то важное","Только когда нужно твоё Да"]},
+  {t:"Насколько Lis решает сам?",hint:"это главное — можно менять потом",multi:false,rec:1,opts:["Спрашивай почаще","Решай обратимое сам, спрашивай про важное","Действуй максимально сам"]}
+ ],
+ accessLabel:"Доступы",accessHint:"по одному — зачем видно, любой пропусти",
+ access:[
+  {ic:"✉️",n:"Почта",why:"важное → решения, спам не доходит",opt:false},
+  {ic:"📅",n:"Календарь",why:"знает день, не будит зря",opt:false},
+  {ic:"💬",n:"Telegram",why:"говорить Да/Нет, кидать фото",opt:false},
+  {ic:"🏦",n:"Банк",why:"следит за счетами и платежами",opt:true},
+  {ic:"🗂️",n:"Notion и заметки",why:"идеи и задачи ложатся по местам",opt:true}
+ ],
+ connect:"Подключить",optional:"опционально",aprog:"из 5 — уже достаточно, можно начинать",
+ readonly:"read-only где можно · отключишь в любой момент",finishBtn:"Готово",
+ doneTitle:"Всё. Дальше я сам.",doneSub:"Первый дайджест — завтра утром. От тебя — только Да или Нет.",
+ openTg:"Открыть в Telegram",restart:"Настроить заново",
+ aut:["Спрашиваю чаще","Решаю обратимое сам, спрашиваю про важное","Действую максимально сам"],
+ rhy:["напоминаю о себе утром дайджестом","пишу, как только что-то важное","беспокою только когда нужно твоё Да"],
+ sumTitle:"Проверим?",sumTake:"Забираю",sumAccess:"Доступов",sumConfirm:"Всё верно"},
+
+en:{name:"English",start:"Start",next:"Next",back:"Back",
+ heroSub:"Lives your routine for you",heroNote:"Set up once — then only results. A couple of minutes, all taps.",
+ wantLabel:"I want",ofWord:"of",
+ q:[
+  {t:"What to take off your plate first?",hint:"pick several",multi:true,opts:["Email","Bills and money","Meetings","Ideas and notes","Everything"]},
+  {t:"When should I check in?",hint:"pick one",multi:false,opts:["Morning digest","The moment it matters","Only when you need to say Yes"]},
+  {t:"How much does Lis decide alone?",hint:"the key one — changeable later",multi:false,rec:1,opts:["Ask me more often","Handle the reversible, ask on the big stuff","Act as much as possible"]}
+ ],
+ accessLabel:"Access",accessHint:"one by one — the why is shown, skip any",
+ access:[
+  {ic:"✉️",n:"Email",why:"important → decisions, spam never lands",opt:false},
+  {ic:"📅",n:"Calendar",why:"knows your day, won't wake you for nothing",opt:false},
+  {ic:"💬",n:"Telegram",why:"say Yes/No, drop a photo",opt:false},
+  {ic:"🏦",n:"Bank",why:"watches invoices and payments",opt:true},
+  {ic:"🗂️",n:"Notion and notes",why:"ideas and tasks fall into place",opt:true}
+ ],
+ connect:"Connect",optional:"optional",aprog:"of 5 — enough to begin",
+ readonly:"read-only where possible · disconnect anytime",finishBtn:"Done",
+ doneTitle:"That's it. I'll take it from here.",doneSub:"First digest — tomorrow morning. From you — just Yes or No.",
+ openTg:"Open in Telegram",restart:"Set up again",
+ aut:["I ask more often","I handle the reversible, ask on the big stuff","I act as much as possible"],
+ rhy:["I check in with a morning digest","I ping you the moment it matters","I only bother you when you need to say Yes"],
+ sumTitle:"All set?",sumTake:"I take",sumAccess:"Access",sumConfirm:"Looks right"},
+
+pt:{name:"Português",start:"Começar",next:"Seguinte",back:"Voltar",
+ heroSub:"Vive a tua rotina por ti",heroNote:"Configuras uma vez — depois só resultados. Uns minutos, tudo a toques.",
+ wantLabel:"Quero",ofWord:"de",
+ q:[
+  {t:"O que tirar da tua frente primeiro?",hint:"escolhe vários",multi:true,opts:["Email","Contas e dinheiro","Reuniões","Ideias e notas","Tudo"]},
+  {t:"Quando devo dar sinal?",hint:"escolhe um",multi:false,opts:["De manhã — resumo","Assim que for importante","Só quando precisas dizer Sim"]},
+  {t:"Quanto é que o Lis decide sozinho?",hint:"o principal — dá para mudar depois",multi:false,rec:1,opts:["Pergunta mais vezes","Resolve o reversível, pergunta no importante","Age o máximo possível"]}
+ ],
+ accessLabel:"Acessos",accessHint:"um a um — o porquê aparece, salta os que quiseres",
+ access:[
+  {ic:"✉️",n:"Email",why:"importante → decisões, spam não chega",opt:false},
+  {ic:"📅",n:"Calendário",why:"conhece o teu dia, não acorda à toa",opt:false},
+  {ic:"💬",n:"Telegram",why:"dizer Sim/Não, enviar foto",opt:false},
+  {ic:"🏦",n:"Banco",why:"vigia faturas e pagamentos",opt:true},
+  {ic:"🗂️",n:"Notion e notas",why:"ideias e tarefas no sítio certo",opt:true}
+ ],
+ connect:"Ligar",optional:"opcional",aprog:"de 5 — já chega para começar",
+ readonly:"só leitura quando possível · desligas quando quiseres",finishBtn:"Pronto",
+ doneTitle:"É tudo. A partir daqui trato eu.",doneSub:"Primeiro resumo — amanhã de manhã. De ti — só Sim ou Não.",
+ openTg:"Abrir no Telegram",restart:"Configurar de novo",
+ aut:["Pergunto mais vezes","Resolvo o reversível, pergunto no importante","Ajo o máximo possível"],
+ rhy:["dou sinal de manhã com um resumo","aviso assim que for importante","só te incomodo quando precisas dizer Sim"],
+ sumTitle:"Confirmamos?",sumTake:"Trato de",sumAccess:"Acessos",sumConfirm:"Está certo"},
+
+es:{name:"Español",start:"Empezar",next:"Siguiente",back:"Atrás",
+ heroSub:"Vive tu rutina por ti",heroNote:"Lo configuras una vez — después solo resultados. Unos minutos, todo a toques.",
+ wantLabel:"Quiero",ofWord:"de",
+ q:[
+  {t:"¿Qué quitar de tu vista primero?",hint:"elige varios",multi:true,opts:["Correo","Cuentas y dinero","Reuniones","Ideas y notas","Todo"]},
+  {t:"¿Cuándo doy señal?",hint:"elige uno",multi:false,opts:["Por la mañana — resumen","En cuanto sea importante","Solo cuando debas decir Sí"]},
+  {t:"¿Cuánto decide Lis solo?",hint:"lo principal — se puede cambiar luego",multi:false,rec:1,opts:["Pregunta más a menudo","Resuelve lo reversible, pregunta lo importante","Actúa lo máximo posible"]}
+ ],
+ accessLabel:"Accesos",accessHint:"uno a uno — se ve el porqué, salta los que quieras",
+ access:[
+  {ic:"✉️",n:"Correo",why:"importante → decisiones, el spam no llega",opt:false},
+  {ic:"📅",n:"Calendario",why:"conoce tu día, no te despierta en vano",opt:false},
+  {ic:"💬",n:"Telegram",why:"decir Sí/No, enviar foto",opt:false},
+  {ic:"🏦",n:"Banco",why:"vigila facturas y pagos",opt:true},
+  {ic:"🗂️",n:"Notion y notas",why:"ideas y tareas en su sitio",opt:true}
+ ],
+ connect:"Conectar",optional:"opcional",aprog:"de 5 — suficiente para empezar",
+ readonly:"solo lectura cuando se puede · desconectas cuando quieras",finishBtn:"Listo",
+ doneTitle:"Ya está. Sigo yo desde aquí.",doneSub:"Primer resumen — mañana por la mañana. De ti — solo Sí o No.",
+ openTg:"Abrir en Telegram",restart:"Configurar de nuevo",
+ aut:["Pregunto más a menudo","Resuelvo lo reversible, pregunto lo importante","Actúo lo máximo posible"],
+ rhy:["doy señal por la mañana con un resumen","aviso en cuanto es importante","solo te molesto cuando debes decir Sí"],
+ sumTitle:"¿Confirmamos?",sumTake:"Me ocupo de",sumAccess:"Accesos",sumConfirm:"Está bien"},
+
+de:{name:"Deutsch",start:"Starten",next:"Weiter",back:"Zurück",
+ heroSub:"Lebt deine Routine für dich",heroNote:"Einmal einrichten — danach nur Ergebnisse. Ein paar Minuten, alles per Tipp.",
+ wantLabel:"Ich will",ofWord:"von",
+ q:[
+  {t:"Was soll zuerst von deinem Tisch?",hint:"mehrere möglich",multi:true,opts:["E-Mail","Rechnungen und Geld","Termine","Ideen und Notizen","Alles"]},
+  {t:"Wann soll ich mich melden?",hint:"eins wählen",multi:false,opts:["Morgens — Übersicht","Sobald es wichtig ist","Nur wenn du Ja sagen musst"]},
+  {t:"Wie viel entscheidet Lis allein?",hint:"das Wichtigste — später änderbar",multi:false,rec:1,opts:["Frag öfter nach","Erledige Umkehrbares, frag beim Wichtigen","Handle so viel wie möglich"]}
+ ],
+ accessLabel:"Zugänge",accessHint:"einzeln — das Warum steht dabei, überspring beliebige",
+ access:[
+  {ic:"✉️",n:"E-Mail",why:"Wichtiges → Entscheidungen, Spam kommt nicht an",opt:false},
+  {ic:"📅",n:"Kalender",why:"kennt deinen Tag, weckt nicht umsonst",opt:false},
+  {ic:"💬",n:"Telegram",why:"Ja/Nein sagen, Foto schicken",opt:false},
+  {ic:"🏦",n:"Bank",why:"behält Rechnungen und Zahlungen im Blick",opt:true},
+  {ic:"🗂️",n:"Notion und Notizen",why:"Ideen und Aufgaben am richtigen Platz",opt:true}
+ ],
+ connect:"Verbinden",optional:"optional",aprog:"von 5 — genug zum Starten",
+ readonly:"nur Lesen wo möglich · jederzeit trennbar",finishBtn:"Fertig",
+ doneTitle:"Das war's. Ab hier übernehme ich.",doneSub:"Erste Übersicht — morgen früh. Von dir — nur Ja oder Nein.",
+ openTg:"In Telegram öffnen",restart:"Neu einrichten",
+ aut:["Ich frage öfter nach","Ich erledige Umkehrbares, frage beim Wichtigen","Ich handle so viel wie möglich"],
+ rhy:["ich melde mich morgens mit einer Übersicht","ich sage sofort Bescheid, wenn es wichtig ist","ich störe nur, wenn du Ja sagen musst"],
+ sumTitle:"Passt das?",sumTake:"Ich übernehme",sumAccess:"Zugänge",sumConfirm:"Passt"}
+};
+
+const ORDER=["pt","en","ru","es","de"];
+const qs=new URLSearchParams(location.search);
+let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"pt").slice(0,2)).toLowerCase();
+if(!L[lang])lang="pt";
+let theme=qs.get("theme")||localStorage.getItem("sw_theme")||"dark";
+
+const state={screen:"hero",qi:0,ans:{0:[],1:null,2:null},acc:[false,false,false,false,false]};
+const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+const app=document.getElementById("app");
+
+function applyTheme(){document.documentElement.dataset.theme=theme==="light"?"light":"";
+  document.getElementById("themeBtn").textContent=theme==="light"?"☀":"☾";
+  document.querySelector('meta[name=theme-color]').content=theme==="light"?"#FBF4EE":"#1B1410";}
+
+function progress(){
+  const map={hero:0,q0:1,q1:2,q2:3,access:4,done:5};
+  const key=state.screen==="q"?"q"+state.qi:state.screen;
+  document.getElementById("pbar").style.width=(map[key]/5*100)+"%";
+}
+
+function esc(s){return s.replace(/</g,"&lt;");}
+
+function render(){
+  const t=L[lang];progress();
+  if(state.screen==="hero"){
+    app.innerHTML=`<div class="hero-center">
+      <svg class="hero-mark" viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg>
+      <div class="big">Lis</div><div class="sub">${t.heroSub}</div><div class="note">${t.heroNote}</div></div>
+      <button class="btn full" id="go">${t.start} →</button>`;
+    document.getElementById("go").onclick=()=>{state.screen="q";state.qi=0;render();};
+    return;
+  }
+  if(state.screen==="q"){
+    const q=t.q[state.qi];
+    let body;
+    if(q.multi){
+      const sel=state.ans[state.qi];
+      body=`<div class="chips">`+q.opts.map((o,i)=>`<div class="chip ${sel.includes(i)?'sel':''}" data-i="${i}">${esc(o)}</div>`).join("")+`</div>`;
+    }else{
+      body=`<div class="opts">`+q.opts.map((o,i)=>`<div class="opt ${q.rec===i?'rec':''} ${state.ans[state.qi]===i?'sel':''}" data-i="${i}">${q.rec===i?`<span class="rlab">★ ${t.wantLabel}</span>`:''}${esc(o)}</div>`).join("")+`</div>`;
+    }
+    app.innerHTML=`<div class="slabel"><span>${t.wantLabel}</span><span>${state.qi+1} ${t.ofWord} 3</span></div>
+      <div class="qtitle">${esc(q.t)}</div><div class="qhint">${q.hint}</div>${body}
+      <div class="spacer"></div>
+      <div class="nav"><button class="back" id="bk">← ${t.back}</button>${q.multi?`<button class="btn" id="nx" style="margin-left:auto">${t.next} →</button>`:''}</div>`;
+    document.getElementById("bk").onclick=()=>{if(state.qi>0){state.qi--;render();}else{state.screen="hero";render();}};
+    if(q.multi){
+      app.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
+        const i=+c.dataset.i,a=state.ans[state.qi],p=a.indexOf(i);
+        if(p<0)a.push(i);else a.splice(p,1);render();});
+      document.getElementById("nx").onclick=()=>advanceQ();
+    }else{
+      app.querySelectorAll(".opt").forEach(c=>c.onclick=()=>{
+        state.ans[state.qi]=+c.dataset.i;c.classList.add("sel");
+        if(reduce)advanceQ();else setTimeout(advanceQ,200);});
+    }
+    return;
+  }
+  if(state.screen==="access"){
+    const n=state.acc.filter(Boolean).length;
+    app.innerHTML=`<div class="slabel"><span>${t.accessLabel}</span></div>
+      <div class="qtitle">${t.accessLabel}</div><div class="qhint">${t.accessHint}</div>
+      <div id="rows">`+t.access.map((a,i)=>`
+        <div class="arow ${state.acc[i]?'on':''}" data-i="${i}">
+          <div class="aic">${a.ic}</div>
+          <div class="atx"><div class="an">${esc(a.n)} ${a.opt?`<span class="opt-tag">· ${t.optional}</span>`:''}</div><div class="aw">${esc(a.why)}</div></div>
+          <button class="pill">${state.acc[i]?'✓':t.connect}</button>
+        </div>`).join("")+`</div>
+      <div class="aprog"><b id="cnt">${n}</b> ${t.aprog}</div>
+      <div class="aread">🔒 ${t.readonly}</div>
+      <div class="spacer"></div>
+      <div class="nav"><button class="back" id="bk">← ${t.back}</button>
+      <button class="btn" id="fin" style="margin-left:auto">${t.finishBtn} →</button></div>`;
+    document.getElementById("bk").onclick=()=>{state.screen="q";state.qi=2;render();};
+    document.getElementById("fin").onclick=()=>{state.screen="done";render();};
+    app.querySelectorAll(".arow").forEach(r=>r.onclick=()=>{
+      const i=+r.dataset.i;state.acc[i]=!state.acc[i];
+      r.classList.toggle("on",state.acc[i]);
+      r.querySelector(".pill").textContent=state.acc[i]?'✓':t.connect;
+      document.getElementById("cnt").textContent=state.acc.filter(Boolean).length;});
+    return;
+  }
+  if(state.screen==="done"){
+    const take=state.ans[0].map(i=>`<span>${esc(t.q[0].opts[i])}</span>`).join("")||"<span>—</span>";
+    const pact=t.aut[state.ans[2]??1]+" · "+t.rhy[state.ans[1]??0];
+    const n=state.acc.filter(Boolean).length;
+    app.innerHTML=`<div class="done-center">
+      <div class="done-check">✓</div>
+      <div class="dt">${t.doneTitle}</div>
+      <div class="summary">
+        <div class="pact">${esc(pact)}</div>
+        <div class="srow"><span class="sk">${t.sumTake}</span><span class="chips-ro">${take}</span></div>
+        <div class="srow"><span class="sk">${t.sumAccess}</span><span>${n} / 5</span></div>
+      </div>
+      <div class="ds">${t.doneSub}</div></div>
+      <a class="btn full" id="tg" href="https://t.me/SeedWaveBot?start=lis_${lang}" target="_blank" rel="noopener">${t.openTg} →</a>
+      <div class="nav" style="justify-content:center;gap:22px"><button class="back" id="bk">← ${t.back}</button><button class="back" id="rs">${t.restart}</button></div>`;
+    document.getElementById("bk").onclick=()=>{state.screen="access";render();};
+    document.getElementById("rs").onclick=()=>{state.screen="hero";state.qi=0;state.ans={0:[],1:null,2:null};state.acc=[false,false,false,false,false];render();};
+    return;
+  }
+}
+function advanceQ(){if(state.qi<2){state.qi++;}else{state.screen="access";}render();}
+
+// language menu + theme
+const menu=document.getElementById("langMenu"),langBtn=document.getElementById("langBtn");
+function buildMenu(){menu.innerHTML=ORDER.map(c=>`<button data-l="${c}" ${c===lang?'aria-current="true"':''}><span class="code">${c.toUpperCase()}</span> ${L[c].name}</button>`).join("");
+  langBtn.textContent=lang.toUpperCase();
+  menu.querySelectorAll("button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;localStorage.setItem("sw_lang",lang);
+    document.documentElement.lang=lang;buildMenu();menu.classList.remove("open");render();});}
+langBtn.onclick=e=>{e.stopPropagation();const o=menu.classList.toggle("open");langBtn.setAttribute("aria-expanded",o);};
+document.addEventListener("click",()=>menu.classList.remove("open"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")menu.classList.remove("open");});
+document.getElementById("themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";localStorage.setItem("sw_theme",theme);applyTheme();};
+document.getElementById("brandLink").onclick=e=>{e.preventDefault();};
+
+document.documentElement.lang=lang;
+applyTheme();buildMenu();render();
+</script>
+</body>
+</html>
