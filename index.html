@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Лис — Личный ИИ-секретарь</title>
+<meta name="description" content="Личный ИИ-секретарь в Telegram: ловит задачи, сортирует по важности и каждое утро присылает дайджест. Не подписка — собери за вечер и владей навсегда.">
+
+<link rel="icon" type="image/svg+xml" href="icon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Лис">
+<meta name="theme-color" content="#1B1410">
+
+<meta property="og:title" content="Лис — твой день начинается с ясного списка">
+<meta property="og:description" content="Личный ИИ-секретарь в Telegram: ловит задачи, сортирует по важности и утром присылает дайджест. Собери за вечер — владей навсегда.">
+<meta property="og:image" content="https://ikartuzov-hub.github.io/lis/og-image.png">
+<meta property="og:url" content="https://l.seedwave.dev/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root{
+  --bg:#1B1410; --bg2:#241A13; --bg3:#2C2018; --ink:#F6ECE4; --mut:#C9B4A6;
+  --line:#3A2C22; --accent:#E8833C; --accent2:#F3A868; --accentInk:#2A1408;
+  --serif:Georgia,'Times New Roman',serif; --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+}
+:root[data-theme="light"]{
+  --bg:#FBF4EE; --bg2:#FFFFFF; --bg3:#FCF6F1; --ink:#241A13; --mut:#7A6656;
+  --line:#EAD9CB; --accent:#C96A25; --accent2:#E8833C; --accentInk:#FFFFFF;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+
+/* topbar */
+.brandmark{position:fixed;top:13px;left:16px;width:26px;height:26px;z-index:7}
+.brandmark svg{width:100%;height:100%}
+.topctrl{position:fixed;top:12px;right:14px;z-index:7;display:flex;align-items:center;gap:8px}
+.rbtn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);
+  color:var(--ink);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.rbtn:hover{border-color:var(--accent)}
+.langwrap{position:relative}
+.langmenu{position:absolute;top:46px;right:0;background:var(--bg2);border:1px solid var(--line);border-radius:14px;
+  padding:6px;min-width:170px;box-shadow:0 12px 30px rgba(0,0,0,.28);display:none}
+.langmenu.open{display:block}
+.langmenu button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:none;color:var(--ink);
+  padding:9px 10px;border-radius:9px;cursor:pointer;font-size:14px;text-align:left}
+.langmenu button:hover{background:var(--bg3)}
+.langmenu button .code{font-weight:700;color:var(--accent);width:26px}
+.langmenu button[aria-current="true"]{background:var(--bg3)}
+
+/* reveal */
+@keyframes markIn{0%{transform:translate(calc(50vw - 42px),calc(45vh - 26px)) scale(8);opacity:0}
+  18%{opacity:1}70%{transform:translate(calc(50vw - 42px),calc(45vh - 26px)) scale(8)}
+  100%{transform:translate(0,0) scale(1)}}
+.brandmark{animation:markIn 2.4s cubic-bezier(.65,0,.25,1) both}
+
+section{padding:0 22px}
+.wrap{max-width:720px;margin:0 auto}
+
+/* hero */
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:74px;padding-bottom:40px}
+.tag{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
+h1{font-family:var(--serif);font-size:clamp(52px,15vw,96px);line-height:.98;font-weight:700;letter-spacing:-.01em}
+.sub{font-size:clamp(18px,4.5vw,24px);color:var(--mut);margin-top:8px}
+.hook{font-size:clamp(16px,3.6vw,19px);margin-top:22px;max-width:560px}
+
+/* wow card */
+.wow{margin-top:30px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:18px 18px 20px;max-width:420px}
+.wow .wh{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px;margin-bottom:14px}
+.wow .wh b{color:var(--ink)}
+.sun{width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+.trow{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:12px;background:var(--bg3);margin-bottom:9px;
+  opacity:0;transform:translateY(8px);animation:rowIn .5s ease forwards}
+.trow:nth-child(2){animation-delay:.2s}.trow:nth-child(3){animation-delay:1.0s}.trow:nth-child(4){animation-delay:1.8s}
+@keyframes rowIn{to{opacity:1;transform:none}}
+.dot{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+.dot.hi{background:var(--accent)}.dot.mid{background:#6FB1C9}.dot.lo{background:var(--mut)}
+.ttxt{flex:1;font-size:14px}
+.chk{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);flex:0 0 auto;position:relative}
+.chk.done{border-color:var(--accent);background:var(--accent)}
+.chk.done::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid var(--accentInk);
+  border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+/* cta */
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:var(--accentInk);
+  font-weight:700;font-size:16px;padding:15px 26px;border-radius:14px;text-decoration:none;border:none;cursor:pointer}
+.btn:hover{background:var(--accent2)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--accent);background:transparent}
+.ctanote{font-size:13px;color:var(--mut);margin-top:12px}
+
+/* blocks */
+.block{padding:64px 22px}
+.block h2{font-family:var(--serif);font-size:clamp(26px,6vw,34px);margin-bottom:26px}
+.step{display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.step .n{font-family:var(--serif);font-size:22px;color:var(--accent);font-weight:700;flex:0 0 34px}
+.step p{font-size:16px;margin-top:2px}
+.proofs{list-style:none;display:grid;gap:12px}
+.proofs li{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 18px;font-size:15px;position:relative;padding-left:44px}
+.proofs li::before{content:"";position:absolute;left:18px;top:19px;width:12px;height:12px;border-radius:50%;
+  background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
+
+/* footer */
+footer{text-align:center;padding:40px 22px 64px;font-size:15px;color:var(--mut);border-top:1px solid var(--line)}
+footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+  padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:9}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(prefers-reduced-motion:reduce){
+  .brandmark{animation:none}.trow{animation:none;opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<a class="brandmark" href="#" aria-label="Лис">
+  <svg viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M20 86 Q30 80 40 86 Q50 92 60 86 Q70 80 80 86"/></svg>
+</a>
+
+<div class="topctrl">
+  <div class="langwrap">
+    <button class="rbtn" id="langBtn" aria-haspopup="true" aria-expanded="false">RU</button>
+    <div class="langmenu" id="langMenu" role="menu"></div>
+  </div>
+  <button class="rbtn" id="themeBtn" aria-label="Тема">☾</button>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="tag" data-i="tag">SeedWave · AI</div>
+    <h1 data-i="title">Лис</h1>
+    <div class="sub" data-i="sub">Личный ИИ-секретарь</div>
+    <p class="hook" data-i="hook"></p>
+
+    <div class="wow" aria-hidden="true">
+      <div class="wh"><span class="sun"></span> <span data-i="wowHead">Доброе утро. Вот твой день:</span></div>
+      <div class="trow"><span class="dot hi"></span><span class="ttxt" data-i="wow1">Ответить AIMA по ВНЖ</span><span class="chk"></span></div>
+      <div class="trow"><span class="dot mid"></span><span class="ttxt" data-i="wow2">Счёт арендатору</span><span class="chk done"></span></div>
+      <div class="trow"><span class="dot lo"></span><span class="ttxt" data-i="wow3">Идея: движок для Birdie</span><span class="chk"></span></div>
+    </div>
+
+    <div class="cta">
+      <a class="btn" id="ctaBtn" href="#" target="_blank" rel="noopener"><span data-i="cta">Собрать Лиса</span> →</a>
+      <button class="btn ghost" id="shareBtn"><span data-i="share">Переслать другу</span></button>
+    </div>
+    <div class="ctanote" data-i="ctaNote"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2 data-i="howTitle">Как это работает</h2>
+    <div id="steps"></div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <h2 data-i="proofTitle">Почему это работает</h2>
+    <ul class="proofs" id="proofs"></ul>
+  </div>
+</section>
+
+<footer>
+  <span>© <span id="yr"></span> <a id="swLink" href="#">SeedWave</a> · <a href="https://www.linkedin.com/in/igor-kartuzov/" target="_blank" rel="noopener">Igor Kartuzov</a></span>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const L = {
+  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Личный ИИ-секретарь",
+    hook:"Пишешь боту задачу, идею или письмо — Лис определяет приоритет, раскладывает по базам и каждое утро присылает дайджест с кнопками «Сделал / Завтра». Не подписка — собери за вечер и владей навсегда.",
+    wowHead:"Доброе утро. Вот твой день:", wow1:"Ответить AIMA по ВНЖ", wow2:"Счёт арендатору", wow3:"Идея: движок для Birdie",
+    cta:"Собрать Лиса", share:"Переслать другу", ctaNote:"Бесплатный разбор в Telegram — без обязательств.",
+    howTitle:"Как это работает", proofTitle:"Почему это работает",
+    how:["Пишешь боту в Telegram задачу, мысль или пересылаешь письмо — в любой момент дня.","ИИ определяет приоритет по матрице Эйзенхауэра и раскладывает всё по базам Notion.","Каждое утро приходит дайджест дел с кнопками «Сделал / Завтра» — день начинается с ясного списка.","Важные письма из Gmail сами превращаются в задачи — ничего не теряется."],
+    proofs:["MVP работает каждый день как личная операционная система автора.","Стек без серверов и без кода: Telegram + Make + OpenAI + Notion.","Не подписка: собираешь за вечер по готовой схеме — и владеешь навсегда."]},
+  en:{name:"English", tag:"SeedWave · AI", sub:"Personal AI secretary",
+    hook:"Message the bot a task, idea or email — Lis sets the priority, files it into your bases, and every morning sends a digest with “Done / Tomorrow” buttons. Not a subscription — build it in an evening and own it forever.",
+    wowHead:"Good morning. Here's your day:", wow1:"Reply to AIMA about residency", wow2:"Invoice the tenant", wow3:"Idea: engine for Birdie",
+    cta:"Build Lis", share:"Share with a friend", ctaNote:"A free walkthrough in Telegram — no strings attached.",
+    howTitle:"How it works", proofTitle:"Why it works",
+    how:["Message the bot a task, thought or forwarded email — any time of day.","The AI sets priority by the Eisenhower matrix and files everything into your Notion bases.","Every morning a digest arrives with “Done / Tomorrow” buttons — the day starts with a clear list.","Important Gmail emails turn into tasks by themselves — nothing gets lost."],
+    proofs:["The MVP runs every day as the author's personal operating system.","No servers, no code: Telegram + Make + OpenAI + Notion.","Not a subscription: build it in an evening from a ready blueprint — own it forever."]},
+  pt:{name:"Português", tag:"SeedWave · AI", sub:"Secretário pessoal de IA",
+    hook:"Envia ao bot uma tarefa, ideia ou email — o Lis define a prioridade, arruma nas tuas bases e todas as manhãs envia um resumo com botões “Feito / Amanhã”. Não é subscrição — monta numa noite e é teu para sempre.",
+    wowHead:"Bom dia. Aqui está o teu dia:", wow1:"Responder à AIMA sobre residência", wow2:"Fatura ao inquilino", wow3:"Ideia: motor para o Birdie",
+    cta:"Montar o Lis", share:"Enviar a um amigo", ctaNote:"Uma demonstração gratuita no Telegram — sem compromisso.",
+    howTitle:"Como funciona", proofTitle:"Porque funciona",
+    how:["Envia ao bot uma tarefa, pensamento ou email reencaminhado — a qualquer hora.","A IA define a prioridade pela matriz de Eisenhower e arruma tudo nas tuas bases Notion.","Todas as manhãs chega um resumo com botões “Feito / Amanhã” — o dia começa com uma lista clara.","Emails importantes do Gmail tornam-se tarefas sozinhos — nada se perde."],
+    proofs:["O MVP corre todos os dias como o sistema operativo pessoal do autor.","Sem servidores, sem código: Telegram + Make + OpenAI + Notion.","Não é subscrição: montas numa noite a partir de um esquema pronto — é teu para sempre."]},
+  es:{name:"Español", tag:"SeedWave · AI", sub:"Secretario personal de IA",
+    hook:"Escribe al bot una tarea, idea o correo — Lis fija la prioridad, la ordena en tus bases y cada mañana envía un resumen con botones «Hecho / Mañana». No es suscripción — móntalo en una tarde y es tuyo para siempre.",
+    wowHead:"Buenos días. Aquí está tu día:", wow1:"Responder a AIMA sobre residencia", wow2:"Factura al inquilino", wow3:"Idea: motor para Birdie",
+    cta:"Montar Lis", share:"Enviar a un amigo", ctaNote:"Una demo gratis en Telegram — sin compromiso.",
+    howTitle:"Cómo funciona", proofTitle:"Por qué funciona",
+    how:["Escribe al bot una tarea, idea o correo reenviado — a cualquier hora del día.","La IA fija la prioridad por la matriz de Eisenhower y ordena todo en tus bases Notion.","Cada mañana llega un resumen con botones «Hecho / Mañana» — el día empieza con una lista clara.","Los correos importantes de Gmail se convierten en tareas solos — nada se pierde."],
+    proofs:["El MVP funciona cada día como el sistema operativo personal del autor.","Sin servidores, sin código: Telegram + Make + OpenAI + Notion.","No es suscripción: lo montas en una tarde con un esquema listo — es tuyo para siempre."]},
+  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Persönlicher KI-Sekretär",
+    hook:"Schick dem Bot eine Aufgabe, Idee oder E-Mail — Lis setzt die Priorität, legt sie in deinen Basen ab und schickt jeden Morgen eine Übersicht mit „Erledigt / Morgen“-Knöpfen. Kein Abo — bau ihn an einem Abend und besitze ihn für immer.",
+    wowHead:"Guten Morgen. Hier ist dein Tag:", wow1:"AIMA wegen Aufenthalt antworten", wow2:"Rechnung an den Mieter", wow3:"Idee: Engine für Birdie",
+    cta:"Lis bauen", share:"An Freund senden", ctaNote:"Eine kostenlose Vorführung in Telegram — unverbindlich.",
+    howTitle:"So funktioniert es", proofTitle:"Warum es funktioniert",
+    how:["Schick dem Bot eine Aufgabe, einen Gedanken oder eine weitergeleitete E-Mail — zu jeder Tageszeit.","Die KI setzt die Priorität nach der Eisenhower-Matrix und legt alles in deine Notion-Basen.","Jeden Morgen kommt eine Übersicht mit „Erledigt / Morgen“-Knöpfen — der Tag beginnt mit einer klaren Liste.","Wichtige Gmail-Mails werden von selbst zu Aufgaben — nichts geht verloren."],
+    proofs:["Das MVP läuft täglich als persönliches Betriebssystem des Autors.","Ohne Server, ohne Code: Telegram + Make + OpenAI + Notion.","Kein Abo: an einem Abend nach fertigem Bauplan gebaut — für immer dein."]}
+};
+const ORDER=["pt","en","ru","es","de"];
+const HUB="https://ikartuzov-hub.github.io/seedwave-catalog/hub/";
+const qs=new URLSearchParams(location.search);
+let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"ru").slice(0,2)).toLowerCase();
+if(!L[lang])lang="ru";
+let theme=qs.get("theme")||localStorage.getItem("sw_theme")||"dark";
+
+function applyTheme(){document.documentElement.dataset.theme=theme==="light"?"light":"";
+  document.getElementById("themeBtn").textContent=theme==="light"?"☀":"☾";
+  document.querySelector('meta[name=theme-color]').content=theme==="light"?"#FBF4EE":"#1B1410";}
+function apply(){
+  const t=L[lang];document.documentElement.lang=lang;
+  document.querySelectorAll("[data-i]").forEach(el=>{const k=el.getAttribute("data-i");if(t[k]!=null)el.textContent=t[k];});
+  document.getElementById("langBtn").textContent=lang.toUpperCase();
+  document.getElementById("steps").innerHTML=t.how.map((s,i)=>`<div class="step"><span class="n">${i+1}</span><p>${s}</p></div>`).join("");
+  document.getElementById("proofs").innerHTML=t.proofs.map(p=>`<li>${p}</li>`).join("");
+  document.getElementById("ctaBtn").href="https://t.me/SeedWaveBot?start=lis_"+lang;
+  document.getElementById("swLink").href=HUB+"?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
+  document.getElementById("yr").textContent=new Date().getFullYear();
+  document.title="Лис — "+t.sub;
+}
+// language menu
+const menu=document.getElementById("langMenu");
+menu.innerHTML=ORDER.map(c=>`<button data-l="${c}" ${c===lang?'aria-current="true"':''}><span class="code">${c.toUpperCase()}</span> ${L[c].name}</button>`).join("");
+const langBtn=document.getElementById("langBtn");
+langBtn.onclick=e=>{e.stopPropagation();const o=menu.classList.toggle("open");langBtn.setAttribute("aria-expanded",o);};
+document.addEventListener("click",()=>menu.classList.remove("open"));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")menu.classList.remove("open");});
+menu.querySelectorAll("button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;localStorage.setItem("sw_lang",lang);
+  menu.querySelectorAll("button").forEach(x=>x.removeAttribute("aria-current"));b.setAttribute("aria-current","true");
+  menu.classList.remove("open");apply();});
+document.getElementById("themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";localStorage.setItem("sw_theme",theme);applyTheme();apply();};
+
+// share
+const toast=document.getElementById("toast");
+document.getElementById("shareBtn").onclick=async()=>{
+  const t=L[lang];const txt=t.sub+" — "+t.hook.split(".")[0]+".";
+  const url="https://l.seedwave.dev/?lang="+lang;
+  try{if(navigator.share){await navigator.share({title:"Лис",text:txt,url});return;}}catch(e){}
+  try{await navigator.clipboard.writeText(txt+" "+url);toast.textContent="✓";toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1600);}catch(e){}
+};
+
+applyTheme();apply();
+</script>
+</body>
+</html>
