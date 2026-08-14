@@ -15,8 +15,8 @@
 
 <meta property="og:title" content="Lis — lives your routine for you">
 <meta property="og:description" content="Connect email, calendar, bank and notes once — Lis sorts the flow and decides. From you: just “Yes” or “No”. Want to remember something — drop a photo.">
-<meta property="og:image" content="https://l.seedwave.dev/og-image.png">
-<meta property="og:url" content="https://l.seedwave.dev/">
+<meta property="og:image" content="https://l.seedwave.pt/og-image.png">
+<meta property="og:url" content="https://l.seedwave.pt/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
@@ -119,6 +119,7 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
   .brandmark.reveal{animation:none}.pline{transition:none;opacity:1;transform:none}
 }
 </style>
+<link rel="canonical" href="https://l.seedwave.pt/">
 </head>
 <body>
 
@@ -289,7 +290,7 @@ const L = {
     ]}
 };
 const ORDER=["pt","en","ru","es","de"];
-const HUB="https://ikartuzov-hub.github.io/seedwave-catalog/hub/";
+const HUB="https://seedwave.pt/hub/";
 const qs=new URLSearchParams(location.search);
 let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"pt").slice(0,2)).toLowerCase();
 if(!L[lang])lang="pt";
@@ -352,7 +353,7 @@ function runDemo(reset){
 const toast=document.getElementById("toast");
 document.getElementById("shareBtn").onclick=async()=>{
   const t=L[lang];const txt=t.sub+" — "+t.hook.split(".")[0]+".";
-  const url="https://l.seedwave.dev/?lang="+lang;
+  const url="https://l.seedwave.pt/?lang="+lang;
   try{if(navigator.share){await navigator.share({title:"Lis",text:txt,url});return;}}catch(e){}
   try{await navigator.clipboard.writeText(txt+" "+url);toast.textContent="✓";toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),1600);}catch(e){}
 };
