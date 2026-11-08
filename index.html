@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Lis — your AI secretary in two sessions</title>
-<meta name="description" content="Email and calendar run by an agent, a voice daily plan, your own Claude Project. Two online sessions with Igor, who lives this way on Madeira himself. You leave with a working secretary, not with advice.">
+<title>Lis — your AI secretary can start on Tuesday</title>
+<meta name="description" content="In a year everyone will have an AI secretary. Lis sorts your inbox, books meetings and answers by voice — an agent on your own data, set up in two online sessions. Made on Madeira.">
 
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-title" content="Lis">
-<meta name="theme-color" content="#1B1410">
+<meta name="theme-color" content="#F6F5FF">
 
-<meta property="og:title" content="Lis — your AI secretary in two sessions">
-<meta property="og:description" content="Two online sessions with Igor, a week of follow-up — and your own AI secretary runs inside your Claude. Step 1 of the Island programme.">
+<meta property="og:title" content="Lis — your AI secretary can start on Tuesday">
+<meta property="og:description" content="Sorts your inbox, books meetings, answers by voice while you drive. An agent on your own data, set up in two online sessions. Made on Madeira.">
 <meta property="og:image" content="https://l.seedwave.pt/og-image.png">
 <meta property="og:url" content="https://l.seedwave.pt/">
 <meta property="og:type" content="website">
@@ -22,13 +22,13 @@
 
 <style>
 :root{
-  --bg:#1B1410; --bg2:#241A13; --bg3:#2C2018; --ink:#F6ECE4; --mut:#C9B4A6;
-  --line:#3A2C22; --accent:#E8833C; --accent2:#F3A868; --accentInk:#2A1408;
-  --serif:Georgia,'Times New Roman',serif; --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
+  --bg:#F6F5FF; --bg2:#FFFFFF; --bg3:#EFEDFF; --ink:#1B1A2E; --mut:#5C5B78;
+  --line:#E4E1FB; --accent:#6D5DFC; --accent2:#5445E6; --accentInk:#FFFFFF;
+  --serif:Georgia,'Times New Roman',serif; --sans:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;
 }
-:root[data-theme="light"]{
-  --bg:#FBF4EE; --bg2:#FFFFFF; --bg3:#FCF6F1; --ink:#241A13; --mut:#7A6656;
-  --line:#EAD9CB; --accent:#C96A25; --accent2:#E8833C; --accentInk:#FFFFFF;
+:root[data-theme="dark"]{
+  --bg:#121226; --bg2:#1A1A33; --bg3:#232345; --ink:#F1EFFF; --mut:#A9A6C9;
+  --line:#2F2E55; --accent:#8B7DFF; --accent2:#A79CFF; --accentInk:#121226;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -52,7 +52,7 @@ a{color:inherit}
 .rbtn:active{transform:scale(.92)}
 .langwrap{position:relative}
 .langmenu{position:absolute;top:46px;right:0;background:var(--bg2);border:1px solid var(--line);border-radius:14px;
-  padding:6px;min-width:176px;box-shadow:0 12px 30px rgba(0,0,0,.28);display:none;z-index:40}
+  padding:6px;min-width:176px;box-shadow:0 12px 30px rgba(27,26,46,.14);display:none;z-index:40}
 .langmenu.open{display:block}
 .langmenu button{display:flex;width:100%;gap:10px;align-items:center;background:none;border:none;color:var(--ink);
   padding:9px 10px;border-radius:9px;cursor:pointer;font-size:14px;text-align:left;font-family:inherit}
@@ -67,26 +67,20 @@ section{padding:0 22px}
 .hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:82px;padding-bottom:40px}
 .tag{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:14px}
 h1{font-family:var(--sans);font-size:clamp(52px,15vw,96px);line-height:.98;font-weight:700;letter-spacing:-.01em}
-.sub{font-size:clamp(19px,4.8vw,26px);color:var(--accent2);margin-top:10px;font-weight:600}
-.hook{font-size:clamp(16px,3.6vw,19px);color:var(--mut);margin-top:20px;max-width:580px}
+.sub{font-size:clamp(19px,4.8vw,26px);color:var(--accent);margin-top:10px;font-weight:600}
+.hook{font-size:clamp(16px,3.6vw,19px);color:#3B3A55;margin-top:20px;max-width:580px}
 
-/* photo-wow card */
-.wow{margin-top:30px;background:var(--bg2);border:1px solid var(--line);border-radius:20px;padding:18px;max-width:440px}
-.wow .wh{display:flex;align-items:center;gap:8px;color:var(--mut);font-size:13px;margin-bottom:14px}
-.wow .wh b{color:var(--ink)}
-.fox{width:18px;height:18px}
-.pline{display:flex;align-items:flex-start;gap:10px;padding:11px 13px;border-radius:12px;background:var(--bg3);margin-bottom:9px;font-size:14px;
-  opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
-.pline.show{opacity:1;transform:none}
-.pline .ic{flex:0 0 auto;font-size:15px;line-height:1.4}
-.pline .tx{flex:1}
-.pline.get{color:var(--ink)}
-.pline.get .lbl{color:var(--accent);font-weight:700}
-.pline.done{align-items:center;justify-content:space-between}
-.pline.done .tx{color:var(--mut)}
-.ynb{display:flex;gap:6px;flex:0 0 auto}
-.yn{width:30px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;border:1px solid var(--line)}
-.yn.y{border-color:var(--accent);background:var(--accent);color:var(--accentInk)}
+/* chat card (Лис на связи) */
+.wow{margin-top:30px;background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:18px 18px 20px;max-width:520px;box-shadow:0 10px 30px rgba(109,93,252,.08);display:flex;flex-direction:column;gap:12px}
+.wow .wh{display:flex;align-items:center;gap:8px;color:var(--ink);font-size:13px;font-weight:600}
+.fox{width:14px;height:14px}
+.bub{max-width:82%;padding:10px 14px;font-size:14px;line-height:1.4;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
+.bub.show{opacity:1;transform:none}
+.bub.me{align-self:flex-end;background:var(--accent);color:var(--accentInk);border-radius:14px 14px 4px 14px;max-width:78%}
+.bub.lis{align-self:flex-start;background:var(--bg3);color:var(--ink);border-radius:14px 14px 14px 4px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;opacity:0;transition:opacity .45s ease}
+.chips.show{opacity:1}
+.chip{border:1px solid var(--line);background:var(--bg2);color:var(--ink);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:500;min-height:36px;font-family:inherit;cursor:default}
 
 /* cta */
 .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px;align-items:center}
@@ -109,16 +103,19 @@ h1{font-family:var(--sans);font-size:clamp(52px,15vw,96px);line-height:.98;font-
   background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent)}
 
 /* footer */
-footer{text-align:center;padding:40px 22px 64px;font-size:15px;color:var(--mut);border-top:1px solid var(--line)}
+footer{text-align:center;padding:40px 22px 64px;font-size:14px;color:var(--mut);border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
 footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
   padding:12px 20px;border-radius:12px;font-size:14px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:9}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(prefers-reduced-motion:reduce){
-  .brandmark.reveal{animation:none}.pline{transition:none;opacity:1;transform:none}
+  .brandmark.reveal{animation:none}.bub,.chips{transition:none;opacity:1;transform:none}
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="canonical" href="https://l.seedwave.pt/">
 </head>
 <body>
@@ -147,10 +144,10 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
     <p class="hook" data-i="hook"></p>
 
     <div class="wow" aria-hidden="true">
-      <div class="wh"><svg class="fox" viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg> <b data-i="wowHead">Lis online</b></div>
-      <div class="pline" id="p1"><span class="ic">📷</span><span class="tx" id="exPhoto"></span></div>
-      <div class="pline get" id="p2"><span class="ic">🦊</span><span class="tx"><span class="lbl" data-i="exLbl">Понял:</span> <span id="exGet"></span></span></div>
-      <div class="pline done" id="p3"><span class="tx" id="exDone"></span><span class="ynb"><span class="yn y">✅</span><span class="yn">❌</span></span></div>
+      <div class="wh"><svg class="fox" viewBox="0 0 100 100" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"><path d="M35 18 L35 66 L60 66"/><path d="M14 84 Q26 78 38 84 Q50 90 62 84 Q74 78 86 84"/></svg> <b data-i="wowHead">Лис на связи</b></div>
+      <div class="bub me" id="b1" data-i="chatUser"></div>
+      <div class="bub lis" id="b2" data-i="chatLis"></div>
+      <div class="chips" id="b3"><span class="chip" data-i="chip1"></span><span class="chip" data-i="chip2"></span><span class="chip" data-i="chip3"></span></div>
     </div>
 
     <div class="cta">
@@ -176,122 +173,78 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
 </section>
 
 <footer>
-  <span>© <span id="yr"></span> <a id="swLink" href="#">SeedWave</a> · <a href="https://www.linkedin.com/in/igor-kartuzov/" target="_blank" rel="noopener">Igor Kartuzov</a></span>
+  <span data-i="footNote"></span>
+  <span>© <span id="yr"></span> <a id="swLink" href="#">SeedWave</a> · Madeira · <a href="https://www.linkedin.com/in/igor-kartuzov/" target="_blank" rel="noopener">Igor Kartuzov</a></span>
 </footer>
 
 <div class="toast" id="toast"></div>
 
 <script>
 const L = {
-  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Твой ИИ-секретарь за две сессии",
-    hook:"Почта и календарь под агентом, план дня голосом, свой Проект Claude. Две онлайн-сессии с Игорем, который сам так живёт на Мадейре, и неделя переписки. Уезжаешь не с советами, а с работающим секретарём.",
-    wowHead:"Лис на связи", exLbl:"Понял:",
-    ex:[
-      {photo:"фото записки от руки", get:"счёт арендатору, срок завтра", done:"черновик выставлен —"},
-      {photo:"фото визитки", get:"новый контакт, добавить в базу", done:"контакт сохранён —"},
-      {photo:"скрин письма из AIMA", get:"запись на ВНЖ, нужен ответ", done:"ответ подготовлен —"}
-    ],
-    cta:"Попробовать Лиса в Telegram", share:"Переслать другу", ctaNote:"Откроется демо-бот: две минуты, четыре кнопки, без регистрации.",
-    howTitle:"Как это проходит", proofTitle:"Почему это работает",
+  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Через год ИИ-секретарь будет у каждого. Твой может начать во вторник", hook:"Лис уже разбирает входящие, ставит встречи и отвечает голосом, пока ты за рулём. Он не приложение — он агент на твоих данных, настроенный под тебя за две онлайн-сессии. Дальше работает сам, а ты замечаешь, что день стал длиннее. Сделан на Мадейре — там, где хватает океана, чтобы смотреть вперёд.", wowHead:"Лис на связи", chatUser:"Пришло письмо из AIMA, не понимаю ни слова", chatLis:"Это уведомление о назначенной дате. Приём 21 ноября в 10:30, адрес и карта — в событии. Поставил в календарь, за день напомню, какие документы взять.", chip1:"Ответить им", chip2:"Перевести письмо", chip3:"Что взять с собой", cta:"Попробовать Лиса в Telegram", share:"Переслать другу", ctaNote:"Демо-бот: две минуты, четыре кнопки, без регистрации. Вторник подойдёт.", howTitle:"Как это проходит", proofTitle:"Почему это работает", footNote:"Лис работает только с тем, к чему ты сам открыл доступ.",
     how:[
-      "Знакомство в Telegram: демо-бот Лиса спрашивает, что съедает твоё время, и показывает, что делает секретарь. Две минуты, кнопками.",
-      "Сессия 1 (60–90 мин): подключаем почту и календарь к твоему Claude, собираем твой Проект, секретарь впервые разбирает входящее при тебе.",
-      "Неделя переписки: секретарь работает, ты отвечаешь «да» или «нет», Игорь подправляет связки под твою жизнь.",
-      "Сессия 2: голос, напоминания, свой Пульт открытых вопросов. Дальше секретарь твой: живёт в твоём Claude, не у нас."
+      "Знакомство в Telegram: демо-бот спрашивает, что съедает твоё время, и показывает, что умеет секретарь. Две минуты, кнопками.",
+      "Сессия 1 (онлайн, 60–90 мин): почта и календарь подключаются к твоему Claude, собирается твой Проект, секретарь впервые разбирает входящее при тебе.",
+      "Неделя в работе: секретарь ведёт поток, ты отвечаешь «да» или «нет», связки подстраиваются под твой ритм.",
+      "Сессия 2: голос, напоминания, свой пульт открытых вопросов. Дальше секретарь твой — живёт в твоём Claude, не у нас."
     ],
     proofs:[
-      "Игорь — пользователь №1: такой же секретарь каждый день ведёт его почту, календарь, аренду и переписку с госорганами Португалии.",
+      "Агент на твоих данных, а не чат, которому всё объясняешь заново: он знает твою почту, календарь и открытые вопросы.",
       "Не аренда и не подписка на сервис: всё собирается в твоём Claude и остаётся твоим.",
-      "Что нужно: платный Claude, смартфон, компьютер и желание. Игорь ничего не навязывает — первый шаг за тобой.",
-      "Ступень 1 программы «Остров». Дальше по желанию: ретрит «Автопилот на Мадейре» и сопровождение."
+      "Что нужно: платный Claude, смартфон, компьютер и желание. Первый шаг за тобой.",
+      "Начинается во вторник: первая сессия — и к вечеру входящие уже разобраны."
     ]},
-  en:{name:"English", tag:"SeedWave · AI", sub:"Your AI secretary in two sessions",
-    hook:"Email and calendar run by an agent, a voice daily plan, your own Claude Project. Two online sessions with Igor, who lives this way on Madeira himself, plus a week of follow-up. You leave not with advice but with a working secretary.",
-    wowHead:"Lis online", exLbl:"Got it:",
-    ex:[
-      {photo:"photo of a handwritten note", get:"invoice for the tenant, due tomorrow", done:"draft prepared —"},
-      {photo:"photo of a business card", get:"new contact, add to your base", done:"contact saved —"},
-      {photo:"screenshot of an AIMA email", get:"residency appointment, needs a reply", done:"reply prepared —"}
-    ],
-    cta:"Try Lis on Telegram", share:"Share with a friend", ctaNote:"Opens the demo bot: two minutes, four buttons, no sign-up.",
-    howTitle:"How it goes", proofTitle:"Why it works",
+  en:{name:"English", tag:"SeedWave · AI", sub:"In a year everyone will have an AI secretary. Yours can start on Tuesday", hook:"Lis already sorts your inbox, books meetings and answers by voice while you drive. Not an app — an agent on your own data, set up for you in two online sessions. Then it runs on its own, and you notice the day got longer. Made on Madeira, where there is enough ocean to look ahead.", wowHead:"Lis online", chatUser:"Got a letter from AIMA, can't understand a word", chatLis:"It's a notice of your appointment date. 21 November at 10:30, address and map are in the event. Added it to your calendar; the day before I'll remind you which documents to bring.", chip1:"Reply to them", chip2:"Translate the letter", chip3:"What to bring", cta:"Try Lis on Telegram", share:"Share with a friend", ctaNote:"Demo bot: two minutes, four buttons, no sign-up. Tuesday works.", howTitle:"How it goes", proofTitle:"Why it works", footNote:"Lis works only with what you have opened access to yourself.",
     how:[
-      "Meet on Telegram: the Lis demo bot asks what eats your time and shows what a secretary does. Two minutes, buttons only.",
-      "Session 1 (60–90 min): we connect email and calendar to your Claude, set up your Project, and the secretary sorts your inbox for the first time while you watch.",
-      "A week of follow-up: the secretary works, you answer “yes” or “no”, Igor tunes the links to your life.",
-      "Session 2: voice, reminders, your own board of open questions. From then on the secretary is yours: it lives in your Claude, not with us."
+      "Meet on Telegram: the demo bot asks what eats your time and shows what a secretary can do. Two minutes, buttons only.",
+      "Session 1 (online, 60–90 min): email and calendar are connected to your Claude, your Project is set up, and the secretary sorts your inbox for the first time while you watch.",
+      "A week at work: the secretary runs the flow, you answer “yes” or “no”, the links adjust to your rhythm.",
+      "Session 2: voice, reminders, your own board of open questions. From then on the secretary is yours — it lives in your Claude, not with us."
     ],
     proofs:[
-      "Igor is user no. 1: the same secretary runs his email, calendar, rentals and correspondence with Portuguese authorities every day.",
+      "An agent on your data, not a chat you explain everything to again: it knows your email, calendar and open questions.",
       "No rental, no service subscription: everything is built inside your Claude and stays yours.",
-      "What you need: a paid Claude plan, a smartphone, a computer and the wish to start. Igor pushes nothing — the first step is yours.",
-      "Step 1 of the “Island” programme. Next, if you want: the “Autopilot on Madeira” retreat and ongoing support."
+      "What you need: a paid Claude plan, a smartphone, a computer and the wish to start. The first step is yours.",
+      "Starts on Tuesday: first session — and by the evening the inbox is already sorted."
     ]},
-  pt:{name:"Português", tag:"SeedWave · AI", sub:"O teu secretário de IA em duas sessões",
-    hook:"Email e calendário geridos por um agente, plano do dia por voz, o teu próprio Projeto Claude. Duas sessões online com o Igor, que vive assim na Madeira, e uma semana de acompanhamento. Sais não com conselhos, mas com um secretário a funcionar.",
-    wowHead:"Lis online", exLbl:"Percebi:",
-    ex:[
-      {photo:"foto de uma nota à mão", get:"fatura ao inquilino, prazo amanhã", done:"rascunho preparado —"},
-      {photo:"foto de um cartão", get:"novo contacto, juntar à base", done:"contacto guardado —"},
-      {photo:"captura de email da AIMA", get:"marcação de residência, precisa resposta", done:"resposta preparada —"}
-    ],
-    cta:"Experimentar o Lis no Telegram", share:"Enviar a um amigo", ctaNote:"Abre o bot de demonstração: dois minutos, quatro botões, sem registo.",
-    howTitle:"Como decorre", proofTitle:"Porque funciona",
+  pt:{name:"Português", tag:"SeedWave · AI", sub:"Daqui a um ano toda a gente terá um secretário de IA. O teu pode começar na terça-feira", hook:"O Lis já trata do correio recebido, marca reuniões e responde por voz enquanto conduzes. Não é uma aplicação — é um agente sobre os teus dados, afinado para ti em duas sessões online. Depois trabalha sozinho, e tu reparas que o dia ficou mais longo. Feito na Madeira — onde há oceano que chegue para olhar em frente.", wowHead:"Lis online", chatUser:"Chegou uma carta da AIMA, não percebo uma palavra", chatLis:"É a notificação da data marcada. Atendimento a 21 de novembro às 10:30, morada e mapa no evento. Já está no calendário; na véspera lembro-te que documentos levar.", chip1:"Responder-lhes", chip2:"Traduzir a carta", chip3:"O que levar", cta:"Experimentar o Lis no Telegram", share:"Enviar a um amigo", ctaNote:"Bot de demonstração: dois minutos, quatro botões, sem registo. Terça-feira serve.", howTitle:"Como decorre", proofTitle:"Porque funciona", footNote:"O Lis trabalha apenas com aquilo a que tu próprio deste acesso.",
     how:[
-      "Primeiro contacto no Telegram: o bot do Lis pergunta o que te come o tempo e mostra o que faz um secretário. Dois minutos, só botões.",
-      "Sessão 1 (60–90 min): ligamos o email e o calendário ao teu Claude, montamos o teu Projeto e o secretário trata do correio pela primeira vez à tua frente.",
-      "Uma semana de acompanhamento: o secretário trabalha, tu respondes «sim» ou «não», o Igor afina as ligações à tua vida.",
-      "Sessão 2: voz, lembretes, o teu painel de questões em aberto. A partir daí o secretário é teu: vive no teu Claude, não connosco."
+      "Primeiro contacto no Telegram: o bot pergunta o que te come o tempo e mostra o que o secretário sabe fazer. Dois minutos, só botões.",
+      "Sessão 1 (online, 60–90 min): o email e o calendário ligam-se ao teu Claude, monta-se o teu Projeto e o secretário trata do correio pela primeira vez à tua frente.",
+      "Uma semana a trabalhar: o secretário gere o fluxo, tu respondes «sim» ou «não», as ligações ajustam-se ao teu ritmo.",
+      "Sessão 2: voz, lembretes, o teu painel de questões em aberto. A partir daí o secretário é teu — vive no teu Claude, não connosco."
     ],
     proofs:[
-      "O Igor é o utilizador n.º 1: um secretário igual trata todos os dias do email, do calendário, dos arrendamentos e da correspondência com os serviços públicos portugueses.",
+      "Um agente sobre os teus dados, não um chat a quem explicas tudo de novo: conhece o teu email, o calendário e as questões em aberto.",
       "Sem aluguer nem subscrição de serviço: tudo é montado no teu Claude e fica teu.",
-      "O que precisas: Claude pago, smartphone, computador e vontade. O Igor não impõe nada — o primeiro passo é teu.",
-      "Etapa 1 do programa «Ilha». Depois, se quiseres: o retiro «Piloto automático na Madeira» e acompanhamento."
+      "O que precisas: Claude pago, smartphone, computador e vontade. O primeiro passo é teu.",
+      "Começa na terça-feira: primeira sessão — e ao fim do dia o correio já está tratado."
     ]},
-  es:{name:"Español", tag:"SeedWave · AI", sub:"Tu secretario de IA en dos sesiones",
-    hook:"Correo y calendario gestionados por un agente, plan del día por voz, tu propio Proyecto Claude. Dos sesiones online con Igor, que vive así en Madeira, y una semana de seguimiento. Te vas no con consejos, sino con un secretario que funciona.",
-    wowHead:"Lis en línea", exLbl:"Entendido:",
-    ex:[
-      {photo:"foto de una nota a mano", get:"factura al inquilino, vence mañana", done:"borrador preparado —"},
-      {photo:"foto de una tarjeta", get:"nuevo contacto, añadir a la base", done:"contacto guardado —"},
-      {photo:"captura de correo de AIMA", get:"cita de residencia, necesita respuesta", done:"respuesta preparada —"}
-    ],
-    cta:"Probar Lis en Telegram", share:"Enviar a un amigo", ctaNote:"Se abre el bot de demostración: dos minutos, cuatro botones, sin registro.",
-    howTitle:"Cómo transcurre", proofTitle:"Por qué funciona",
+  es:{name:"Español", tag:"SeedWave · AI", sub:"Dentro de un año todos tendrán un secretario de IA. El tuyo puede empezar el martes", hook:"Lis ya ordena el correo entrante, agenda reuniones y responde por voz mientras conduces. No es una aplicación — es un agente sobre tus datos, ajustado para ti en dos sesiones online. Después trabaja solo, y tú notas que el día se ha hecho más largo. Hecho en Madeira — donde hay océano de sobra para mirar hacia delante.", wowHead:"Lis en línea", chatUser:"Me llegó una carta de AIMA, no entiendo ni una palabra", chatLis:"Es la notificación de la cita asignada. Atención el 21 de noviembre a las 10:30, dirección y mapa en el evento. Ya está en el calendario; la víspera te recuerdo qué documentos llevar.", chip1:"Responderles", chip2:"Traducir la carta", chip3:"Qué llevar", cta:"Probar Lis en Telegram", share:"Enviar a un amigo", ctaNote:"Bot de demostración: dos minutos, cuatro botones, sin registro. El martes va bien.", howTitle:"Cómo transcurre", proofTitle:"Por qué funciona", footNote:"Lis trabaja solo con aquello a lo que tú mismo has dado acceso.",
     how:[
-      "Primer contacto en Telegram: el bot de Lis pregunta qué se come tu tiempo y muestra lo que hace un secretario. Dos minutos, solo botones.",
-      "Sesión 1 (60–90 min): conectamos correo y calendario a tu Claude, montamos tu Proyecto y el secretario ordena tu bandeja por primera vez delante de ti.",
-      "Una semana de seguimiento: el secretario trabaja, tú respondes «sí» o «no», Igor ajusta los enlaces a tu vida.",
-      "Sesión 2: voz, recordatorios, tu propio panel de cuestiones abiertas. Desde ahí el secretario es tuyo: vive en tu Claude, no con nosotros."
+      "Primer contacto en Telegram: el bot pregunta qué se come tu tiempo y muestra lo que sabe hacer el secretario. Dos minutos, solo botones.",
+      "Sesión 1 (online, 60–90 min): correo y calendario se conectan a tu Claude, se monta tu Proyecto y el secretario ordena tu bandeja por primera vez delante de ti.",
+      "Una semana en marcha: el secretario lleva el flujo, tú respondes «sí» o «no», los enlaces se ajustan a tu ritmo.",
+      "Sesión 2: voz, recordatorios, tu propio panel de cuestiones abiertas. Desde ahí el secretario es tuyo — vive en tu Claude, no con nosotros."
     ],
     proofs:[
-      "Igor es el usuario n.º 1: un secretario igual gestiona cada día su correo, su calendario, sus alquileres y la correspondencia con la administración portuguesa.",
+      "Un agente sobre tus datos, no un chat al que se lo explicas todo de nuevo: conoce tu correo, tu calendario y tus cuestiones abiertas.",
       "Sin alquiler ni suscripción a un servicio: todo se monta en tu Claude y queda tuyo.",
-      "Qué necesitas: Claude de pago, smartphone, ordenador y ganas. Igor no impone nada — el primer paso es tuyo.",
-      "Etapa 1 del programa «Isla». Después, si quieres: el retiro «Piloto automático en Madeira» y acompañamiento."
+      "Qué necesitas: Claude de pago, smartphone, ordenador y ganas. El primer paso es tuyo.",
+      "Empieza el martes: primera sesión — y por la tarde la bandeja ya está ordenada."
     ]},
-  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Dein KI-Sekretär in zwei Sitzungen",
-    hook:"E-Mail und Kalender von einem Agenten geführt, Tagesplan per Stimme, dein eigenes Claude-Projekt. Zwei Online-Sitzungen mit Igor, der selbst so auf Madeira lebt, plus eine Woche Begleitung. Du gehst nicht mit Ratschlägen, sondern mit einem arbeitenden Sekretär.",
-    wowHead:"Lis online", exLbl:"Verstanden:",
-    ex:[
-      {photo:"Foto einer handschriftlichen Notiz", get:"Rechnung an den Mieter, morgen fällig", done:"Entwurf erstellt —"},
-      {photo:"Foto einer Visitenkarte", get:"neuer Kontakt, in die Basis aufnehmen", done:"Kontakt gespeichert —"},
-      {photo:"Screenshot einer AIMA-Mail", get:"Termin für Aufenthalt, braucht Antwort", done:"Antwort vorbereitet —"}
-    ],
-    cta:"Lis auf Telegram ausprobieren", share:"An Freund senden", ctaNote:"Öffnet den Demo-Bot: zwei Minuten, vier Buttons, keine Anmeldung.",
-    howTitle:"So läuft es ab", proofTitle:"Warum es funktioniert",
+  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"In einem Jahr hat jeder einen KI-Sekretär. Deiner kann am Dienstag anfangen", hook:"Lis sortiert schon deine Eingänge, legt Termine an und antwortet per Stimme, während du fährst. Keine App — ein Agent auf deinen Daten, in zwei Online-Sitzungen auf dich eingestellt. Danach arbeitet er allein, und du merkst, dass der Tag länger geworden ist. Gemacht auf Madeira — wo genug Ozean ist, um nach vorn zu schauen.", wowHead:"Lis online", chatUser:"Ein Brief von AIMA ist gekommen, ich verstehe kein Wort", chatLis:"Das ist die Mitteilung über deinen Termin. Vorsprache am 21. November um 10:30, Adresse und Karte stehen im Ereignis. Steht im Kalender; am Vortag erinnere ich dich, welche Unterlagen mitzunehmen sind.", chip1:"Ihnen antworten", chip2:"Brief übersetzen", chip3:"Was mitnehmen", cta:"Lis auf Telegram ausprobieren", share:"An Freund senden", ctaNote:"Demo-Bot: zwei Minuten, vier Buttons, keine Anmeldung. Dienstag passt.", howTitle:"So läuft es ab", proofTitle:"Warum es funktioniert", footNote:"Lis arbeitet nur mit dem, wozu du selbst den Zugang geöffnet hast.",
     how:[
-      "Kennenlernen auf Telegram: der Lis-Demo-Bot fragt, was deine Zeit frisst, und zeigt, was ein Sekretär tut. Zwei Minuten, nur Buttons.",
-      "Sitzung 1 (60–90 Min.): wir verbinden E-Mail und Kalender mit deinem Claude, richten dein Projekt ein, und der Sekretär sortiert zum ersten Mal vor deinen Augen deinen Eingang.",
-      "Eine Woche Begleitung: der Sekretär arbeitet, du antwortest „ja“ oder „nein“, Igor stimmt die Verknüpfungen auf dein Leben ab.",
-      "Sitzung 2: Stimme, Erinnerungen, dein eigenes Board offener Fragen. Ab dann gehört der Sekretär dir: er lebt in deinem Claude, nicht bei uns."
+      "Kennenlernen auf Telegram: der Demo-Bot fragt, was deine Zeit frisst, und zeigt, was ein Sekretär kann. Zwei Minuten, nur Buttons.",
+      "Sitzung 1 (online, 60–90 Min.): E-Mail und Kalender werden mit deinem Claude verbunden, dein Projekt wird eingerichtet, und der Sekretär sortiert zum ersten Mal vor deinen Augen deinen Eingang.",
+      "Eine Woche im Einsatz: der Sekretär führt den Fluss, du antwortest „ja“ oder „nein“, die Verknüpfungen passen sich deinem Rhythmus an.",
+      "Sitzung 2: Stimme, Erinnerungen, dein eigenes Board offener Fragen. Ab dann gehört der Sekretär dir — er lebt in deinem Claude, nicht bei uns."
     ],
     proofs:[
-      "Igor ist Nutzer Nr. 1: derselbe Sekretär führt täglich seine E-Mails, seinen Kalender, seine Vermietungen und den Schriftverkehr mit portugiesischen Behörden.",
+      "Ein Agent auf deinen Daten, kein Chat, dem du alles neu erklärst: er kennt deine E-Mails, deinen Kalender und deine offenen Fragen.",
       "Keine Miete, kein Service-Abo: alles entsteht in deinem Claude und bleibt deins.",
-      "Was du brauchst: bezahltes Claude, Smartphone, Computer und Lust anzufangen. Igor drängt nichts auf — der erste Schritt ist deiner.",
-      "Stufe 1 des Programms «Insel». Danach nach Wunsch: das Retreat «Autopilot auf Madeira» und Begleitung."
+      "Was du brauchst: bezahltes Claude, Smartphone, Computer und Lust anzufangen. Der erste Schritt ist deiner.",
+      "Beginnt am Dienstag: erste Sitzung — und am Abend ist der Eingang schon sortiert."
     ]}
 };
 const ORDER=["pt","en","ru","es","de"];
@@ -299,11 +252,11 @@ const HUB="https://seedwave.pt/hub/";
 const qs=new URLSearchParams(location.search);
 let lang=(qs.get("lang")||localStorage.getItem("sw_lang")||(navigator.language||"pt").slice(0,2)).toLowerCase();
 if(!L[lang])lang="pt";
-let theme=qs.get("theme")||localStorage.getItem("sw_theme")||"dark";
+let theme=qs.get("theme")||localStorage.getItem("sw_theme")||"light";
 
-function applyTheme(){document.documentElement.dataset.theme=theme==="light"?"light":"";
-  document.getElementById("themeBtn").textContent=theme==="light"?"☀":"☾";
-  document.querySelector('meta[name=theme-color]').content=theme==="light"?"#FBF4EE":"#1B1410";}
+function applyTheme(){document.documentElement.dataset.theme=theme==="dark"?"dark":"";
+  document.getElementById("themeBtn").textContent=theme==="dark"?"☀":"☾";
+  document.querySelector('meta[name=theme-color]').content=theme==="dark"?"#121226":"#F6F5FF";}
 function apply(){
   const t=L[lang];document.documentElement.lang=lang;
   document.querySelectorAll("[data-i]").forEach(el=>{const k=el.getAttribute("data-i");if(t[k]!=null)el.textContent=t[k];});
@@ -314,7 +267,7 @@ function apply(){
   document.getElementById("swLink").href=HUB+"?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
   document.getElementById("yr").textContent=new Date().getFullYear();
   document.title="Lis — "+t.sub;
-  runDemo(true);
+  runDemo();
 }
 // language menu
 const menu=document.getElementById("langMenu");
@@ -328,30 +281,17 @@ menu.querySelectorAll("button").forEach(b=>b.onclick=()=>{lang=b.dataset.l;local
   menu.classList.remove("open");apply();});
 document.getElementById("themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";localStorage.setItem("sw_theme",theme);applyTheme();apply();};
 
-// photo-wow demo (cycles examples)
-let demoTimer=null, exIdx=0;
-const p1=document.getElementById("p1"),p2=document.getElementById("p2"),p3=document.getElementById("p3");
+// chat demo (появление пузырей)
+let demoTimer=null;
+const b1=document.getElementById("b1"),b2=document.getElementById("b2"),b3=document.getElementById("b3");
 const reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
-function paintEx(i){
-  const t=L[lang],e=t.ex[i];
-  document.getElementById("exPhoto").textContent=e.photo;
-  document.getElementById("exGet").textContent=e.get;
-  document.getElementById("exDone").textContent="✓ "+e.done;
-}
-function runDemo(reset){
+function runDemo(){
   clearTimeout(demoTimer);
-  if(reset){exIdx=0;}
-  if(reduce){paintEx(exIdx);[p1,p2,p3].forEach(p=>p.classList.add("show"));return;}
-  [p1,p2,p3].forEach(p=>p.classList.remove("show"));
-  paintEx(exIdx);
-  setTimeout(()=>p1.classList.add("show"),120);
-  setTimeout(()=>p2.classList.add("show"),900);
-  setTimeout(()=>p3.classList.add("show"),1700);
-  demoTimer=setTimeout(()=>{
-    [p1,p2,p3].forEach(p=>p.classList.remove("show"));
-    exIdx=(exIdx+1)%L[lang].ex.length;
-    demoTimer=setTimeout(()=>runDemo(false),450);
-  },4200);
+  if(reduce){[b1,b2,b3].forEach(p=>p.classList.add("show"));return;}
+  [b1,b2,b3].forEach(p=>p.classList.remove("show"));
+  setTimeout(()=>b1.classList.add("show"),200);
+  setTimeout(()=>b2.classList.add("show"),1100);
+  demoTimer=setTimeout(()=>b3.classList.add("show"),1900);
 }
 
 // share
