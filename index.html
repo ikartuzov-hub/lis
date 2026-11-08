@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Lis — lives your routine for you</title>
-<meta name="description" content="Personal AI secretary on top of Cowork and Claude. Connects once to your email, calendar, bank and notes — then sorts the flow itself. From you: just “Yes” or “No”. Want to remember something — drop a photo.">
+<title>Lis — your AI secretary in two sessions</title>
+<meta name="description" content="Email and calendar run by an agent, a voice daily plan, your own Claude Project. Two online sessions with Igor, who lives this way on Madeira himself. You leave with a working secretary, not with advice.">
 
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -13,8 +13,8 @@
 <meta name="apple-mobile-web-app-title" content="Lis">
 <meta name="theme-color" content="#1B1410">
 
-<meta property="og:title" content="Lis — lives your routine for you">
-<meta property="og:description" content="Connect email, calendar, bank and notes once — Lis sorts the flow and decides. From you: just “Yes” or “No”. Want to remember something — drop a photo.">
+<meta property="og:title" content="Lis — your AI secretary in two sessions">
+<meta property="og:description" content="Two online sessions with Igor, a week of follow-up — and your own AI secretary runs inside your Claude. Step 1 of the Island programme.">
 <meta property="og:image" content="https://l.seedwave.pt/og-image.png">
 <meta property="og:url" content="https://l.seedwave.pt/">
 <meta property="og:type" content="website">
@@ -154,7 +154,7 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
     </div>
 
     <div class="cta">
-      <a class="btn" id="ctaBtn" href="onboarding.html" rel="noopener"><span data-i="cta">Подключить Lis</span> →</a>
+      <a class="btn" id="ctaBtn" href="https://t.me/LisDemBot?start=hub" target="_blank" rel="noopener"><span data-i="cta">Подключить Lis</span> →</a>
       <button class="btn ghost" id="shareBtn"><span data-i="share">Переслать другу</span></button>
     </div>
     <div class="ctanote" data-i="ctaNote"></div>
@@ -183,110 +183,115 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
 
 <script>
 const L = {
-  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Живёт твою рутину за тебя",
-    hook:"Почта, календарь, банк, заметки — Лис подключается один раз и дальше сам разбирает поток. От тебя только «Да» или «Нет». А хочешь что-то не забыть — просто кинь фото, остальное он сделает сам.",
+  ru:{name:"Русский", tag:"SeedWave · AI", sub:"Твой ИИ-секретарь за две сессии",
+    hook:"Почта и календарь под агентом, план дня голосом, свой Проект Claude. Две онлайн-сессии с Игорем, который сам так живёт на Мадейре, и неделя переписки. Уезжаешь не с советами, а с работающим секретарём.",
     wowHead:"Лис на связи", exLbl:"Понял:",
     ex:[
       {photo:"фото записки от руки", get:"счёт арендатору, срок завтра", done:"черновик выставлен —"},
       {photo:"фото визитки", get:"новый контакт, добавить в базу", done:"контакт сохранён —"},
       {photo:"скрин письма из AIMA", get:"запись на ВНЖ, нужен ответ", done:"ответ подготовлен —"}
     ],
-    cta:"Подключить Lis", share:"Переслать другу", ctaNote:"Настройка один раз — дальше только результаты.",
-    howTitle:"Как это работает", proofTitle:"Почему это работает",
+    cta:"Попробовать Лиса в Telegram", share:"Переслать другу", ctaNote:"Откроется демо-бот: две минуты, четыре кнопки, без регистрации.",
+    howTitle:"Как это проходит", proofTitle:"Почему это работает",
     how:[
-      "Подключаешь один раз: почта, календарь, банк, заметки — и говоришь, что забирать с глаз.",
-      "Лис сам тянет поток из всех источников, понимает каждый пункт и решает всё, что можно, без тебя.",
-      "Что нельзя решить за тебя — приносит готовой развилкой: одно касание «Да» или «Нет».",
-      "Хочешь что-то не забыть — кинь фото. Лис распознаёт и либо уточняет, либо сразу делает."
+      "Знакомство в Telegram: демо-бот Лиса спрашивает, что съедает твоё время, и показывает, что делает секретарь. Две минуты, кнопками.",
+      "Сессия 1 (60–90 мин): подключаем почту и календарь к твоему Claude, собираем твой Проект, секретарь впервые разбирает входящее при тебе.",
+      "Неделя переписки: секретарь работает, ты отвечаешь «да» или «нет», Игорь подправляет связки под твою жизнь.",
+      "Сессия 2: голос, напоминания, свой Пульт открытых вопросов. Дальше секретарь твой: живёт в твоём Claude, не у нас."
     ],
     proofs:[
-      "С тебя сняты действия и размышления — приходит не список задач, а готовые решения.",
-      "Работает поверх Cowork и Claude: максимум доступов — минимум твоих касаний.",
-      "Один раз настроил — дальше он твой. Не костыль, а личный секретарь, который живёт сам."
+      "Игорь — пользователь №1: такой же секретарь каждый день ведёт его почту, календарь, аренду и переписку с госорганами Португалии.",
+      "Не аренда и не подписка на сервис: всё собирается в твоём Claude и остаётся твоим.",
+      "Что нужно: платный Claude, смартфон, компьютер и желание. Игорь ничего не навязывает — первый шаг за тобой.",
+      "Ступень 1 программы «Остров». Дальше по желанию: ретрит «Автопилот на Мадейре» и сопровождение."
     ]},
-  en:{name:"English", tag:"SeedWave · AI", sub:"Lives your routine for you",
-    hook:"Email, calendar, bank, notes — Lis connects once and sorts the flow by itself. From you: just “Yes” or “No”. And if you want to remember something — just drop a photo, he handles the rest.",
+  en:{name:"English", tag:"SeedWave · AI", sub:"Your AI secretary in two sessions",
+    hook:"Email and calendar run by an agent, a voice daily plan, your own Claude Project. Two online sessions with Igor, who lives this way on Madeira himself, plus a week of follow-up. You leave not with advice but with a working secretary.",
     wowHead:"Lis online", exLbl:"Got it:",
     ex:[
       {photo:"photo of a handwritten note", get:"invoice for the tenant, due tomorrow", done:"draft prepared —"},
       {photo:"photo of a business card", get:"new contact, add to your base", done:"contact saved —"},
       {photo:"screenshot of an AIMA email", get:"residency appointment, needs a reply", done:"reply prepared —"}
     ],
-    cta:"Connect Lis", share:"Share with a friend", ctaNote:"Set up once — then only results.",
-    howTitle:"How it works", proofTitle:"Why it works",
+    cta:"Try Lis on Telegram", share:"Share with a friend", ctaNote:"Opens the demo bot: two minutes, four buttons, no sign-up.",
+    howTitle:"How it goes", proofTitle:"Why it works",
     how:[
-      "Connect once: email, calendar, bank, notes — and tell him what to take off your plate.",
-      "Lis pulls the flow from every source himself, understands each item and settles all he can without you.",
-      "What can't be decided for you — he brings as a ready fork: one tap, “Yes” or “No”.",
-      "Want to remember something — drop a photo. Lis reads it and either asks or just does it."
+      "Meet on Telegram: the Lis demo bot asks what eats your time and shows what a secretary does. Two minutes, buttons only.",
+      "Session 1 (60–90 min): we connect email and calendar to your Claude, set up your Project, and the secretary sorts your inbox for the first time while you watch.",
+      "A week of follow-up: the secretary works, you answer “yes” or “no”, Igor tunes the links to your life.",
+      "Session 2: voice, reminders, your own board of open questions. From then on the secretary is yours: it lives in your Claude, not with us."
     ],
     proofs:[
-      "Actions and thinking are lifted off you — not a to-do list, but ready decisions.",
-      "Runs on top of Cowork and Claude: maximum access — minimum taps from you.",
-      "Set up once — then he's yours. Not a crutch, but a secretary that runs on its own."
+      "Igor is user no. 1: the same secretary runs his email, calendar, rentals and correspondence with Portuguese authorities every day.",
+      "No rental, no service subscription: everything is built inside your Claude and stays yours.",
+      "What you need: a paid Claude plan, a smartphone, a computer and the wish to start. Igor pushes nothing — the first step is yours.",
+      "Step 1 of the “Island” programme. Next, if you want: the “Autopilot on Madeira” retreat and ongoing support."
     ]},
-  pt:{name:"Português", tag:"SeedWave · AI", sub:"Vive a tua rotina por ti",
-    hook:"Email, calendário, banco, notas — o Lis liga-se uma vez e trata do fluxo sozinho. De ti: só “Sim” ou “Não”. E se quiseres não esquecer algo — envia uma foto, ele faz o resto.",
+  pt:{name:"Português", tag:"SeedWave · AI", sub:"O teu secretário de IA em duas sessões",
+    hook:"Email e calendário geridos por um agente, plano do dia por voz, o teu próprio Projeto Claude. Duas sessões online com o Igor, que vive assim na Madeira, e uma semana de acompanhamento. Sais não com conselhos, mas com um secretário a funcionar.",
     wowHead:"Lis online", exLbl:"Percebi:",
     ex:[
       {photo:"foto de uma nota à mão", get:"fatura ao inquilino, prazo amanhã", done:"rascunho preparado —"},
       {photo:"foto de um cartão", get:"novo contacto, juntar à base", done:"contacto guardado —"},
       {photo:"captura de email da AIMA", get:"marcação de residência, precisa resposta", done:"resposta preparada —"}
     ],
-    cta:"Ligar o Lis", share:"Enviar a um amigo", ctaNote:"Configuras uma vez — depois só resultados.",
-    howTitle:"Como funciona", proofTitle:"Porque funciona",
+    cta:"Experimentar o Lis no Telegram", share:"Enviar a um amigo", ctaNote:"Abre o bot de demonstração: dois minutos, quatro botões, sem registo.",
+    howTitle:"Como decorre", proofTitle:"Porque funciona",
     how:[
-      "Ligas uma vez: email, calendário, banco, notas — e dizes o que tirar da tua frente.",
-      "O Lis puxa o fluxo de todas as fontes sozinho, percebe cada item e resolve tudo o que pode sem ti.",
-      "O que não se pode decidir por ti — traz como escolha pronta: um toque, “Sim” ou “Não”.",
-      "Queres não esquecer algo — envia uma foto. O Lis reconhece e pergunta ou faz logo."
+      "Primeiro contacto no Telegram: o bot do Lis pergunta o que te come o tempo e mostra o que faz um secretário. Dois minutos, só botões.",
+      "Sessão 1 (60–90 min): ligamos o email e o calendário ao teu Claude, montamos o teu Projeto e o secretário trata do correio pela primeira vez à tua frente.",
+      "Uma semana de acompanhamento: o secretário trabalha, tu respondes «sim» ou «não», o Igor afina as ligações à tua vida.",
+      "Sessão 2: voz, lembretes, o teu painel de questões em aberto. A partir daí o secretário é teu: vive no teu Claude, não connosco."
     ],
     proofs:[
-      "As ações e a reflexão saem de ti — não uma lista de tarefas, mas decisões prontas.",
-      "Corre sobre o Cowork e o Claude: máximo de acessos — mínimo de toques teus.",
-      "Configuras uma vez — depois é teu. Não uma muleta, mas um secretário que corre sozinho."
+      "O Igor é o utilizador n.º 1: um secretário igual trata todos os dias do email, do calendário, dos arrendamentos e da correspondência com os serviços públicos portugueses.",
+      "Sem aluguer nem subscrição de serviço: tudo é montado no teu Claude e fica teu.",
+      "O que precisas: Claude pago, smartphone, computador e vontade. O Igor não impõe nada — o primeiro passo é teu.",
+      "Etapa 1 do programa «Ilha». Depois, se quiseres: o retiro «Piloto automático na Madeira» e acompanhamento."
     ]},
-  es:{name:"Español", tag:"SeedWave · AI", sub:"Vive tu rutina por ti",
-    hook:"Correo, calendario, banco, notas — Lis se conecta una vez y ordena el flujo solo. De ti: solo “Sí” o “No”. Y si quieres no olvidar algo — envía una foto, él hace el resto.",
+  es:{name:"Español", tag:"SeedWave · AI", sub:"Tu secretario de IA en dos sesiones",
+    hook:"Correo y calendario gestionados por un agente, plan del día por voz, tu propio Proyecto Claude. Dos sesiones online con Igor, que vive así en Madeira, y una semana de seguimiento. Te vas no con consejos, sino con un secretario que funciona.",
     wowHead:"Lis en línea", exLbl:"Entendido:",
     ex:[
       {photo:"foto de una nota a mano", get:"factura al inquilino, vence mañana", done:"borrador preparado —"},
       {photo:"foto de una tarjeta", get:"nuevo contacto, añadir a la base", done:"contacto guardado —"},
       {photo:"captura de correo de AIMA", get:"cita de residencia, necesita respuesta", done:"respuesta preparada —"}
     ],
-    cta:"Conectar Lis", share:"Enviar a un amigo", ctaNote:"Lo configuras una vez — después solo resultados.",
-    howTitle:"Cómo funciona", proofTitle:"Por qué funciona",
+    cta:"Probar Lis en Telegram", share:"Enviar a un amigo", ctaNote:"Se abre el bot de demostración: dos minutos, cuatro botones, sin registro.",
+    howTitle:"Cómo transcurre", proofTitle:"Por qué funciona",
     how:[
-      "Conectas una vez: correo, calendario, banco, notas — y dices qué quitar de tu vista.",
-      "Lis trae el flujo de todas las fuentes solo, entiende cada punto y resuelve todo lo que puede sin ti.",
-      "Lo que no se puede decidir por ti — lo trae como bifurcación lista: un toque, “Sí” o “No”.",
-      "Quieres no olvidar algo — envía una foto. Lis la reconoce y pregunta o lo hace al momento."
+      "Primer contacto en Telegram: el bot de Lis pregunta qué se come tu tiempo y muestra lo que hace un secretario. Dos minutos, solo botones.",
+      "Sesión 1 (60–90 min): conectamos correo y calendario a tu Claude, montamos tu Proyecto y el secretario ordena tu bandeja por primera vez delante de ti.",
+      "Una semana de seguimiento: el secretario trabaja, tú respondes «sí» o «no», Igor ajusta los enlaces a tu vida.",
+      "Sesión 2: voz, recordatorios, tu propio panel de cuestiones abiertas. Desde ahí el secretario es tuyo: vive en tu Claude, no con nosotros."
     ],
     proofs:[
-      "Las acciones y el pensar se te quitan — no una lista de tareas, sino decisiones listas.",
-      "Funciona sobre Cowork y Claude: máximo acceso — mínimo de toques tuyos.",
-      "Lo configuras una vez — después es tuyo. No una muleta, sino un secretario que funciona solo."
+      "Igor es el usuario n.º 1: un secretario igual gestiona cada día su correo, su calendario, sus alquileres y la correspondencia con la administración portuguesa.",
+      "Sin alquiler ni suscripción a un servicio: todo se monta en tu Claude y queda tuyo.",
+      "Qué necesitas: Claude de pago, smartphone, ordenador y ganas. Igor no impone nada — el primer paso es tuyo.",
+      "Etapa 1 del programa «Isla». Después, si quieres: el retiro «Piloto automático en Madeira» y acompañamiento."
     ]},
-  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Lebt deine Routine für dich",
-    hook:"E-Mail, Kalender, Bank, Notizen — Lis verbindet sich einmal und ordnet den Fluss von selbst. Von dir: nur „Ja“ oder „Nein“. Und willst du etwas nicht vergessen — schick ein Foto, den Rest macht er.",
+  de:{name:"Deutsch", tag:"SeedWave · AI", sub:"Dein KI-Sekretär in zwei Sitzungen",
+    hook:"E-Mail und Kalender von einem Agenten geführt, Tagesplan per Stimme, dein eigenes Claude-Projekt. Zwei Online-Sitzungen mit Igor, der selbst so auf Madeira lebt, plus eine Woche Begleitung. Du gehst nicht mit Ratschlägen, sondern mit einem arbeitenden Sekretär.",
     wowHead:"Lis online", exLbl:"Verstanden:",
     ex:[
       {photo:"Foto einer handschriftlichen Notiz", get:"Rechnung an den Mieter, morgen fällig", done:"Entwurf erstellt —"},
       {photo:"Foto einer Visitenkarte", get:"neuer Kontakt, in die Basis aufnehmen", done:"Kontakt gespeichert —"},
       {photo:"Screenshot einer AIMA-Mail", get:"Termin für Aufenthalt, braucht Antwort", done:"Antwort vorbereitet —"}
     ],
-    cta:"Lis verbinden", share:"An Freund senden", ctaNote:"Einmal einrichten — danach nur Ergebnisse.",
-    howTitle:"So funktioniert es", proofTitle:"Warum es funktioniert",
+    cta:"Lis auf Telegram ausprobieren", share:"An Freund senden", ctaNote:"Öffnet den Demo-Bot: zwei Minuten, vier Buttons, keine Anmeldung.",
+    howTitle:"So läuft es ab", proofTitle:"Warum es funktioniert",
     how:[
-      "Einmal verbinden: E-Mail, Kalender, Bank, Notizen — und sagen, was von deinem Tisch soll.",
-      "Lis zieht den Fluss aus allen Quellen selbst, versteht jeden Punkt und erledigt alles Mögliche ohne dich.",
-      "Was nicht für dich entschieden werden kann — bringt er als fertige Weiche: ein Tipp, „Ja“ oder „Nein“.",
-      "Willst du etwas nicht vergessen — schick ein Foto. Lis erkennt es und fragt oder macht es sofort."
+      "Kennenlernen auf Telegram: der Lis-Demo-Bot fragt, was deine Zeit frisst, und zeigt, was ein Sekretär tut. Zwei Minuten, nur Buttons.",
+      "Sitzung 1 (60–90 Min.): wir verbinden E-Mail und Kalender mit deinem Claude, richten dein Projekt ein, und der Sekretär sortiert zum ersten Mal vor deinen Augen deinen Eingang.",
+      "Eine Woche Begleitung: der Sekretär arbeitet, du antwortest „ja“ oder „nein“, Igor stimmt die Verknüpfungen auf dein Leben ab.",
+      "Sitzung 2: Stimme, Erinnerungen, dein eigenes Board offener Fragen. Ab dann gehört der Sekretär dir: er lebt in deinem Claude, nicht bei uns."
     ],
     proofs:[
-      "Handeln und Nachdenken werden dir abgenommen — keine To-do-Liste, sondern fertige Entscheidungen.",
-      "Läuft auf Cowork und Claude: maximaler Zugang — minimale Tipps von dir.",
-      "Einmal eingerichtet — dann gehört er dir. Keine Krücke, sondern ein Sekretär, der von selbst läuft."
+      "Igor ist Nutzer Nr. 1: derselbe Sekretär führt täglich seine E-Mails, seinen Kalender, seine Vermietungen und den Schriftverkehr mit portugiesischen Behörden.",
+      "Keine Miete, kein Service-Abo: alles entsteht in deinem Claude und bleibt deins.",
+      "Was du brauchst: bezahltes Claude, Smartphone, Computer und Lust anzufangen. Igor drängt nichts auf — der erste Schritt ist deiner.",
+      "Stufe 1 des Programms «Insel». Danach nach Wunsch: das Retreat «Autopilot auf Madeira» und Begleitung."
     ]}
 };
 const ORDER=["pt","en","ru","es","de"];
@@ -305,7 +310,7 @@ function apply(){
   document.getElementById("langBtn").textContent=lang.toUpperCase();
   document.getElementById("steps").innerHTML=t.how.map((s,i)=>`<div class="step"><span class="n">${i+1}</span><p>${s}</p></div>`).join("");
   document.getElementById("proofs").innerHTML=t.proofs.map(p=>`<li>${p}</li>`).join("");
-  document.getElementById("ctaBtn").href="onboarding.html?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
+  document.getElementById("ctaBtn").href="https://t.me/LisDemBot?start=site_"+lang;
   document.getElementById("swLink").href=HUB+"?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
   document.getElementById("yr").textContent=new Date().getFullYear();
   document.title="Lis — "+t.sub;
