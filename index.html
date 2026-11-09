@@ -176,7 +176,7 @@ footer a{display:inline-block;padding:8px 4px;text-decoration:underline;text-dec
 
 <footer>
   <span data-i="footNote">Лис работает только с тем, к чему ты сам открыл доступ.</span>
-  <span>© <span id="yr"></span> <a id="swLink" href="#">SeedWave</a> · <a href="https://seedwave.pt/madeira/?utm_source=lis&amp;utm_medium=footer">Madeira</a> · <a href="https://www.linkedin.com/in/igor-kartuzov/" target="_blank" rel="noopener">Igor Kartuzov</a></span>
+  <span>© <span id="yr"></span> <a id="swLink" href="#">SeedWave</a> · <a id="madLink" href="https://seedwave.pt/madeira/?utm_source=lis&amp;utm_medium=footer">Madeira</a> · <a href="https://www.linkedin.com/in/igor-kartuzov/" target="_blank" rel="noopener">Igor Kartuzov</a></span>
 </footer>
 
 <div class="toast" id="toast"></div>
@@ -267,6 +267,7 @@ function apply(){
   document.getElementById("proofs").innerHTML=t.proofs.map(p=>`<li>${p}</li>`).join("");
   document.getElementById("ctaBtn").href="https://t.me/LisDemBot?start=site_"+lang;
   document.getElementById("swLink").href=HUB+"?lang="+lang+"&theme="+(theme==="light"?"light":"dark");
+  document.getElementById("madLink").href="https://seedwave.pt/madeira/?lang="+lang+"&utm_source=lis&utm_medium=footer";
   document.getElementById("yr").textContent=new Date().getFullYear();
   document.title="Lis — "+t.sub;
   runDemo();
